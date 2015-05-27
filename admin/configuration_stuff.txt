@@ -1,0 +1,6 @@
+course status key:
+
+1) registered
+2) waiting list
+3) unconfirmed
+4) cancelled

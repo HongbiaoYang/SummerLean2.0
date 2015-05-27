@@ -1,0 +1,38 @@
+Requirements :
+PHP
+MySQL
+phpESP (optional for surveys)
+
+Download the latest version of CourseMS from https://sourceforge.net/projects/coursems
+
+Create a new database in mySQL using the tool of your choice, and then import the sql file contained in the SQL folder of the project root.
+
+Edit the config.php files in both the project root and in the admin folder and change the database connection settings, folder paths and URL paths to your environment.
+
+The database settings will need a user with insert, update and delete rights. 
+ 
+Once this is done you should be able to use the admin side of the application. 
+ 
+Browse to the admin page in your browser by visiting http://yourserver/courseMSfolder/admin/login.php.
+
+Login with the following credentials:
+
+username: admin 
+password: 4dm1n (notice the one instead of an 'i') 
+ 
+This should allow you to enter the application. 
+ 
+Once inside you will need to set up your application before you will be able to properly use it: 
+ 
+First create a centre (site management submenu)
+ 
+Then create some course types, categories and courses (course management submenu)
+ 
+You can then start scheduling courses, create users, and register learners.
+
+Note: currently this is setup to send an email confirmation to users who register on the front end. Please make sure you enter a valid email address, otherwise you will not get the email. If you want to bypass this, edit the users table schema and set the Active default value to 0, then remove the email call from the account_pending.php page.
+
+If you would like a map displayed for the users based on the address of the center,
+
+1. Make sure the address is correct and that google and interpret it.
+2. In the Admin section, click on Site, then Site Paramters and enter your Google Maps API key obtained from them. 
