@@ -1,4 +1,4 @@
-SmartKitchen
+Lean Summer Program 
 ============
 
-Backend Information Management System for smart kitchen system
+Management Information System for Lean Summer Program
