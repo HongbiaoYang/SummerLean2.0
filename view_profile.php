@@ -189,7 +189,7 @@
 													Work Phone:
 												</td>
 												<td class="right">
-													<?php echo $user->work_telephone; ?>
+													<?php echo $user->mobile; ?>
 												</td>
 											</tr>
 										</table>

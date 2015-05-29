@@ -21,9 +21,13 @@ var $admin_class;
 var $title;
 var $firstname;
 var $lastname;
+var $gender;
+var $martial;
+var $insurance;
+var $insurance_no;
 var $hospital_name;
 var $home_telephone;
-var $work_telephone;
+var $mobile;
 var $mobile_telephone;
 var $bleep;
 var $address_line1;
@@ -80,6 +84,10 @@ function set_profile() {
 	$this->lastname = $row['LastName'];
 	$this->lastname2 = $row['LastName2'];
 	$this->fullname = $row['fullName'];
+	$this->gender = $row['gender'];
+	$this->martial = $row['martial'];
+    
+
 	$this->netid = $row['netid'];
 	$this->tnid = $row['TNID'];
 	$this->email = $row['Email'];
@@ -89,10 +97,12 @@ function set_profile() {
 	$this->choice2 = $row['Choice2'];
 	$this->choice3 = $row['Choice3'];
 	$this->choice4 = $row['Choice4'];
+	$this->insurance = $row['insurance'];
+	$this->insurance_no = $row['insurance_no'];
 
 	$this->hospital_name = $row['hospital_name'];
 	$this->home_telephone = $row['home_telephone'];
-	$this->work_telephone = $row['work_telephone'];
+	$this->mobile = $row['mobile'];
 	$this->mobile_telephone = $row['mobile_telephone'];
 	$this->bleep = $row['bleep'];
 	$this->address_line1 = $row['address_line1'];

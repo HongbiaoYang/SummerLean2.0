@@ -23,7 +23,7 @@ var $firstname;
 var $lastname;
 var $hospital_name;
 var $home_telephone;
-var $work_telephone;
+var $mobile;
 var $mobile_telephone;
 var $bleep;
 var $address_line1;
@@ -82,7 +82,7 @@ function set_profile() {
 	$this->hospital_name = $row['hospital_name'];
 	$this->email2 = $row['email2'];
 	$this->home_telephone = $row['home_telephone'];
-	$this->work_telephone = $row['work_telephone'];
+	$this->mobile = $row['mobile'];
 	$this->mobile_telephone = $row['mobile_telephone'];
 	$this->bleep = $row['bleep'];
 	$this->address_line1 = $row['address_line1'];

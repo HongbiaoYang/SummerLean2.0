@@ -37,7 +37,7 @@
 
         // generate background string
         $backstr = gen_background_value($_POST['background']);
-        
+        $contact_tel_ab = "+" . $_POST['contact_tel_ab1']. "-" .$_POST['contact_tel_ab2'];
 
 				$sql_array = array("stuindex" => $user_id,
 						   "email" => $_POST['email'],
@@ -46,43 +46,44 @@
 						   "lastname2" => $_POST['lastname2'],
 						   "middlename" => $_POST['middlename'],
 						   "fullname" => $_POST['fullname'],
-						   "work_telephone" => $_POST['work_tel'],
+						   "gender" => $_POST['gender'],
+						   "martial" => $_POST['martial'],		
+						   "mobile" => $_POST['mobile'],
+						   "facebook" => $_POST['facebook'],
+						   "twitter" => $_POST['twitter'],
+						   "whatsapp" => $_POST['whatsapp'],
+						   "google" => $_POST['google'],
+						   "wechat" => $_POST['wechat'],
+						   "sns_name" => $_POST['sns_name'],
+						   "sns_id" => $_POST['sns_id'],
+						   
+						   "insurance" => $_POST['insurance'],
+						   "insurance_no" => $_POST['insurance_no'],
+						   "contact_name_ab" => $_POST['contact_name_ab'],
+						   "contact_relation_ab" => $_POST['contact_relation_ab'],
+						   "contact_tel_ab" => $contact_tel_ab,
+						   "contact_lan" => $_POST['contact_lan'],
+						   "toefl" => $_POST['toefl'],
+						   
 						   "Englishwrite" => $_POST['ewrite'],
 						   "Englishlisten" => $_POST['elisten'],
 						   "Englishspeak" => $_POST['espeak'],
-						   "gender" => $_POST['gender'],
 						   "university" => $_POST['university'],
 						   "major" => $_POST['major'],
 						   "country" => $_POST['country'],
+						   "pob" => $_POST['pob'],
 						   "gpa" => $_POST['gpa'],
 						   "dob" => $_POST['dob'],
-						   "background" => $backstr,						   
+						   "background" => $backstr,		
+						   				   
 						   "insurance" => $_POST['insurance'],
 						   "arrival" => $_POST['arrival'],
 						   "departure" => $_POST['departure']
-           /*     "hospital_name" => $_POST['hosp_name'],
-						   "address_line1" => $_POST['addr1'],
-						   "address_line2" => $_POST['addr2'],
-						   "city" => $_POST['city'],
-						   "postcode" => $_POST['postcode'],
-						   "cDate" => date("Y-m-d H:i:s"),
-						   "mDate" => date("Y-m-d H:i:s"),         
-						   "home_telephone" => $_POST['home_tel'],
-						   "mobile_telephone" => $_POST['mobile_tel'],
-						   "job_title_id" => $_POST['job_title'],
-						   "specialty_id" => $_POST['specialty'],
-						   "band" => $_POST['band'],
-						   "gmc_reg" => $_POST['gmc_reg'],
-						   "diet" => $_POST['diet'],
-						   "how_hear" => $_POST['how_hear'],
-						   "qualifications" => $_POST['qualifications'],
-						   "photo" => $filename,
-						   "instructor" => $_POST['instructor']*/
 						   );
 
 
         if ($fname = do_upload($_FILES['upload'], $user_id)) {
-            $sql_array['visa'] = $fname;
+            $sql_array['picture'] = $fname;
         }
         
 
@@ -227,66 +228,279 @@
 								</td>
 							</tr>
 							
+								<tr>
+								<td align="right" class="left">
+									Name on Certificate:
+								</td>
+								<td class="right">
+									<input type="text" name="fullname" value="<?php echo $_POST['fullname'] ?>" class="textbox1">
+									&nbsp;<span class="required">*</span>
+									&nbsp;Type your full name exactly as you wish to have it in your certificate. Special characters are allowed
+								</td>
+							</tr>
 							
-						<tr>
+							
+							<tr>
 							<td align="right" class="left">
 								Gender:
 							</td>
 							<td class="right">
 							<select name="gender">
 								<option value="N">--Select--</option>
-								<option value="M">Male</option>
-								<option value="F">Female</option>
+								<option value="M" <?php if ($_POST['gender'] == 'M') echo "SELECTED";?>>Male</option>
+								<option value="F" <?php if ($_POST['gender'] == 'F') echo "SELECTED";?>>Female</option>
 								</select>
 								&nbsp;<span class="required">*</span>
 							</td>
 						</tr>
+						
 							
-							<tr>
-								<td align="right" class="left">
-									Name on Certificate:
-								</td>
-								<td class="right">
-									<input type="text" name="fullname" value="<?php echo $_POST['fullname'] ?>" class="textbox1">
-									&nbsp;(accept native language)
-								</td>
-							</tr>
+					  <tr>
+					    <td align="right" class="left">
+					    	Date of Birth 
+					    </td>
+					    <td class="right">
+					    	<input name="dob" type="date" id="dob"  size="20" maxlength="20" value="<?php echo $_POST['dob']?>"/>
+					    	(Use format "mm/dd/yyyy" if calendar is not showing)</td>
+					  </tr>
+						
 							
-							<tr>
+								<tr>
 								<td align="right" class="left">
-									Country:
+									Nationality:
 								</td>
 								<td class="right">
 									<!-- pulldown menu of vegitarian, halal, kosher -->
-									<?php  echo   tep_build_dropdown(TABLE_COUNTRIES, 'country', false, '1', 'id != 555'); ?>
+									<?php  echo   tep_build_dropdown(TABLE_COUNTRIES, 'country', false, '1', '', true, $_POST['country']);?>
+									
 									&nbsp;<span class="required">*</span>
 								</td>
 							</tr>
 							
-							<tr>
+								<tr>
 								<td align="right" class="left">
-									Work Tel:
+								Place of Birth(City, State/Province, Country):
 								</td>
 								<td class="right">
-									<input type="text" name="work_tel" value="<?php echo $_POST['work_tel'] ?>" class="textbox1">
-									&nbsp;<span class="required">*</span>
+									<input type="text" name="pob" value="<?php echo $_POST['pob'] ?>" class="textbox1">
+									&nbsp;
 								</td>
 							</tr>
 							
-							<tr>
-								<td align="right" class="left">
-									Insurance:
-								</td>
-									<td class="right">
-									<input type="text" name="insurance" value="<?php echo $_POST['insurance'] ?>" class="textbox1">
-									&nbsp;<span class="required">*</span>
-								</td>
-							</tr>
-							
-			
+						<tr>
+							<td align="right" class="left">
+								Martial Status:
+							</td>
+							<td class="right">
+							<select name="martial" selected=<?php echo $_POST['martial'];?> >
+								<option value="N">--Select--</option>
+								<option value="S" <?php if ($_POST['martial'] == 'S') echo "SELECTED";?>>Single</option>
+								<option value="M" <?php if ($_POST['martial'] == 'M') echo "SELECTED";?>>Married</option>
+								</select>
+								&nbsp;<span class="required">*</span>
+							</td>
+						</tr>
+									
 						</table>
 					</td>
 				</tr>
+				
+				<tr>
+					<td>
+						<h4>Contact and Emergency Information:
+					</td>
+				</tr>
+				<tr>
+				
+							<tr>
+								<td align="right" class="left">
+								 Mobile Phone:
+								</td>
+								<td class="right">
+									<input type="text" name="mobile" value="<?php echo $_POST['mobile'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right" class="left">
+								 Facebook:
+								</td>
+								<td class="right">
+									<input type="text" name="facebook" value="<?php echo $_POST['facebook'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right" class="left">
+								 Twitter:
+								</td>
+								<td class="right">
+									<input type="text" name="twitter" value="<?php echo $_POST['twitter'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right" class="left">
+								 Whatsapp:
+								</td>
+								<td class="right">
+									<input type="text" name="whatsapp" value="<?php echo $_POST['whatsapp'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right" class="left">
+								 Google Hangout:
+								</td>
+								<td class="right">
+									<input type="text" name="google" value="<?php echo $_POST['google'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right" class="left">
+								 Wechat:
+								</td>
+								<td class="right">
+									<input type="text" name="wechat" value="<?php echo $_POST['wechat'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							 <tr><td class="left"> <strong>Other:</strong</td><td></td></tr>
+							 <tr>
+								<td align="right" class="left">
+								 Name:
+								</td>
+								<td class="right">
+									<input type="text" name="sns_name" value="<?php echo $_POST['sns_name'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							 <tr>
+								<td align="right" class="left">
+								 ID:
+								</td>
+								<td class="right">
+									<input type="text" name="sns_id" value="<?php echo $_POST['sns_id'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							
+							
+								<tr>
+								<td align="right" class="left">
+									Primary Insurance Carrier:
+								</td>
+									<td class="right">
+									<input type="text" name="insurance" value="<?php echo $_POST['insurance'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+								<tr>
+								<td align="right" class="left">
+									Insurance Policy Number:
+								</td>
+									<td class="right">
+									<input type="text" name="insurance_no" value="<?php echo $_POST['insurance_no'] ?>" class="textbox1">
+									&nbsp;
+								</td>
+							</tr>
+							
+							<tr><td></td><td></td></tr>
+							<tr><td></td><td></td></tr>
+							
+							
+							<tr><td></td><td></td></tr>
+							<tr><td></td><td></td></tr>
+							
+							<tr></tr>
+							   <tr><td class="left"> <strong>Emergency Contact  Abroad:</strong</td><td></td></tr>
+							 
+								<tr>
+								<td align="right" class="left">
+									Name:
+								</td>
+									<td class="right">
+									<input type="text" name="contact_name_ab" value="<?php echo $_POST['contact_name_ab'] ?>" class="textbox1">
+									&nbsp;<span class="required">*</span>
+									&nbsp;
+								</td>
+							</tr>
+							
+								<tr>
+								<td align="right" class="left">
+									Relationship to you:
+								</td>
+									<td class="right">
+									<input type="text" name="contact_relation_ab" value="<?php echo $_POST['contact_relation_ab'] ?>" class="textbox1">
+									&nbsp;<span class="required">*</span>
+									&nbsp;
+								</td>
+							</tr>
+							
+													
+							<tr>
+								<td align="right" class="left">
+									Phone Number:
+								</td>
+									<td class="right">
+									    <select name="contact_tel_ab1" class="textbox1" >
+									        <option value="0">--select--</option>
+									        <?php 
+									            $query = 'select distinct id from tbl_countries where id > 0 order by id asc';
+									            $result = tep_db_query($query);
+									            while ($row = tep_db_fetch_array($result)) {
+									                extract($row);
+    									        ?>
+    									         <option value="<?php echo $id."\""; 
+    									            if ($id==$_POST['contact_tel_ab1']) {echo "Selected";}
+    									            echo ">(+".$id.")";
+    									            ?></option>
+                             <?php 
+                                }
+    									        ?>
+									    </select>
+
+										<input type="text" name="contact_tel_ab2" value="<?php echo $_POST['contact_tel_ab2'] ?>" class="textbox1">
+									&nbsp;<span class="required">*</span>									
+								</td>
+								
+							</tr>
+							
+							
+							
+							
+								<tr>
+								<td align="right" class="left">
+									Prefered Language:
+								</td>
+									<td class="right">
+									<input type="text" name="contact_lan" value="<?php echo $_POST['contact_lan'] ?>" class="textbox1">
+									&nbsp;<span class="required">*</span>   
+									&nbsp;
+								</td>
+							</tr>
+							
+							
+							
+							
+					
+					
+					</table>
+						</td>
+				</tr>
+				
+				
+				
 				<tr>
 					<td>
 						<h4>Background Information
@@ -296,22 +510,28 @@
 					<td colspan="2">
 						<table width="100%">
 						
-					  <tr>
-					    <td align="right" class="left">
-					    	Date of Birth 
-					    </td>
-					    <td class="right">
-					    	<input name="dob" type="date" id="dob"  size="20" maxlength="20" value="<?php echo $_POST['dob']?>"/>
-					    	(Use format "mm/dd/yyyy" if calendar is not showing)</td>
-					  </tr>
+		
+			      <tr>
+							<td align="right" class="left">
+								TOEFL score:
+							</td>
+							<td class="right">
+							<input type="text" name="toefl" value="<?php echo $_POST['toefl'] ?>" class="textbox1">
+								&nbsp;<span class="required">*</span>
+							</td>
+						</tr>
+						
   
+					
 						<tr>
 							<td align="right" class="left">
 								English Level - Writing:
 							</td>
 							<td class="right">
 								<!-- pulldown menu of vegitarian, halal, kosher --> 	
-								<?php echo tep_build_dropdown(TABLE_LEVELS, 'ewrite');?>
+								<?php echo tep_build_dropdown(TABLE_LEVELS, 'ewrite', false, '1', '', true, $_POST['ewrite']);?>
+								
+								
 								&nbsp;<span class="required">*</span>
 							</td>
 						</tr>
@@ -322,7 +542,7 @@
 							</td>
 							<td class="right">
 								<!-- pulldown menu of vegitarian, halal, kosher --> 	
-								<?php echo tep_build_dropdown(TABLE_LEVELS, 'elisten');?>
+								<?php echo tep_build_dropdown(TABLE_LEVELS, 'elisten', false, '1', '', true, $_POST['elisten']);?>
 								&nbsp;<span class="required">*</span>
 							</td>
 						</tr>
@@ -333,7 +553,7 @@
 							</td>
 							<td class="right">
 								<!-- pulldown menu of vegitarian, halal, kosher --> 	
-								<?php echo tep_build_dropdown(TABLE_LEVELS, 'espeak');?>
+								<?php echo tep_build_dropdown(TABLE_LEVELS, 'espeak', false, '1', '', true, $_POST['espeak']);?>
 								&nbsp;<span class="required">*</span>
 							</td>
 						</tr>
@@ -411,14 +631,14 @@
 					    <td class="right">
 					    	<input name="departure" type="date" id="departure"  size="20" maxlength="20" value="<?php echo $_POST['departure']?>"
 					    	 /> 
-					    	 <button  Onmouseup ="clickButton('lala')" >Check Duration</button>
+					    	 <button  Onmouseup ="clickButton()" >Check Duration</button>
 					    	</td>
 					  </tr>
 
 					  					  
 					    <tr>
 					    <td align="right" class="left">
-					    	Visa Document:
+					    	Profile Picture (optional):
 					    </td>
 					    <td class="right">
 					    	<input type="file" name="upload" id="upload">

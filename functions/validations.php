@@ -32,65 +32,20 @@
 			}
 			if (strlen($_POST['firstname']) == 0) {
 			$error[0] = true;
-			$error[1] .= '<br>* Forename is a required field';
+			$error[1] .= '<br>* First Name is a required field';
 			}
 			if (strlen($_POST['lastname']) == 0) {
 				$error[0] = true;
-				$error[1] .= '<br>* Surname is a required field';
+				$error[1] .= '<br>* Last Name is a required field';
 			}
 		}
 		if (!tep_validate_email($_POST['email'])) {
 			$error[0] = true;
 			$error[1] .= '<br>* E-Mail address not valid';
 		}
-/*		if (!isset($_POST['title'])) {
-			$error[0] = true;
-			$error[1] .= '<br>* Title not selected';
-		}*/
-		if (strlen($_POST['firstname']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Forename is a required field';
-		}
-		if (strlen($_POST['lastname']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Surname is a required field';
-		}
-/*		if (strlen($_POST['hosp_name']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Hospital Name is a required field';
-		}
-		if (strlen($_POST['addr1']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Address line 1 is a required field';
-		}
-		if (strlen($_POST['city']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* City is a required field';
-		}
-		if (strlen($_POST['postcode']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Postcode is a required field';
-		}
-		if (strlen($_POST['job_title']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Job Title is a required field';
-		}				
-		if (strlen($_POST['specialty']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Specialty is a required field';
-		}
-*/	
-if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
+    if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Country is a required field';
-		}
-		if (strlen($_POST['work_tel']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Work Telephone is a required field';
-		}
-		if (strlen($_POST['insurance']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Insurance is a required field';
 		}
 		if (strlen($_POST['dob']) == 0) {
 			$error[0] = true;
@@ -133,24 +88,28 @@ if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
 			$error[1] .= '<br>* Departure Date is a required field';
 		}
 		
-		$ulerror = check_upload($_FILES['upload']);
-		if ($ulerror[0] == 0) {
-		    $error[0] = true;
-		    $error[1] .= '<br>* '.$ulerror[1];
-		}
+//		$ulerror = check_upload($_FILES['upload']);
+//		if ($ulerror[0] == 0) {
+//		    $error[0] = true;
+//		    $error[1] .= '<br>* '.$ulerror[1];
+//		}
 		
 
 		return $error;
 	}
 	
 	
+	
+	
+	
 	function tep_validate_registration_swb($type = '') {
 
 		$error[0] = false;
+		$error[1] = "what the fuck";
 		if ($type != 'profile') {
 			if (!tep_validate_email($_POST['email'])) {
 				$error[0] = true;
-				$error[1] .= '<br>* E-Mail address not valid';
+				$error[1] .= '<br>* E-Mail address not valids';
 			}
 			if (!tep_username_unique($_POST['email'])) {
 				$error[0] = true;
@@ -166,32 +125,20 @@ if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
 			}
 			if (strlen($_POST['firstname']) == 0) {
 			$error[0] = true;
-			$error[1] .= '<br>* Forename is a required field';
+			$error[1] .= '<br>* First Name is a required field';
 			}
 			if (strlen($_POST['lastname']) == 0) {
 				$error[0] = true;
-				$error[1] .= '<br>* Surname is a required field';
+				$error[1] .= '<br>* Last Name is a required field';
 			}
+		}
+		if (strlen($_POST['fullname']) == 0) {
+				$error[0] = true;
+				$error[1] .= '<br>* Name on Certificate is a required field';
 		}
 		if (!tep_validate_email($_POST['email'])) {
 			$error[0] = true;
 			$error[1] .= '<br>* E-Mail address not valid';
-		}
-		if (strlen($_POST['firstname']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Forename is a required field';
-		}
-		if (strlen($_POST['lastname']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Surname is a required field';
-		}	
-		if (strlen($_POST['work_tel']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Work Telephone is a required field';
-		}
-		if (strlen($_POST['insurance']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Insurance is a required field';
 		}
 		if (strlen($_POST['dob']) == 0) {
 			$error[0] = true;
@@ -201,9 +148,9 @@ if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* English Writing is a required field';
 		}
-		if (strlen($_POST['elisten']) == 0 || $_POST['ewrite'] == 0) {
+		if (strlen($_POST['elisten']) == 0 || $_POST['elisten'] == 0) {
 			$error[0] = true;
-			$error[1] .= '<br>* English Listen is a required field';
+			$error[1] .= '<br>* English Listening is a required field';
 		}
 		if (strlen($_POST['espeak']) == 0 || $_POST['espeak'] == 0) {
 			$error[0] = true;
@@ -213,6 +160,30 @@ if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Gender is a required field';
 		}
+		if (strlen($_POST['martial']) == 0 || $_POST['martial'] == 'N') {
+			$error[0] = true;
+			$error[1] .= '<br>* Martial status is a required field';
+		}
+		if (strlen($_POST['contact_name_ab']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Name of Emergency contact abroad is a required field';
+		}
+		if (strlen($_POST['contact_relation_ab']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Relationship of Emergency contact abroad is a required field';
+		}
+		if (strlen($_POST['contact_tel_ab1']) == 0 || $_POST['contact_tel_ab1'] == 0 ||
+		    strlen($_POST['contact_tel_ab2']) == 0 || $_POST['contact_tel_ab2'] == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Telephone of Emergency contact abroad is a required field';
+		}
+		if (strlen($_POST['contact_lan']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* The language of Emergency contact abroad is a required field';
+		}
+		
+		
+		
 		if (strlen($_POST['university']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* University is a required field';
@@ -231,7 +202,11 @@ if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
 		}
 		if (strlen($_POST['gpa']) == 0) {
 			$error[0] = true;
-			$error[1] .= '<br>* GPA is a required field';
+			$error[1] .= '<br>* GPA in US is a required field';
+		}
+		if (strlen($_POST['gpa_br']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* GPA in Brazil is a required field';
 		}
 
 		return $error;

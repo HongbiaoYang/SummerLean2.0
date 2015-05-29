@@ -20,7 +20,7 @@ function  chooseType () {
 
 }
 
-function clickButton(input) 
+function clickButton() 
 {
 
 var inputs = document.getElementsByTagName("INPUT");
@@ -103,4 +103,23 @@ function jumpto(x) {
 	if (document.form1.jumpmenu.value != "null") {
 		document.location.href = x;
 	}
+}
+
+
+
+function addCode(id) {
+	
+	$.get("areaCodeAjax.php",
+			{id:id},
+			function(data) {
+				$("div#type").html(data);
+			},
+			"html");
+
+}
+
+
+function alert_msg(id) {
+    alert("msg="+id);
+
 }

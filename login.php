@@ -90,14 +90,18 @@
 						<td colspan="2"><center>
 							<a class="frontlink" href="choose_type.php">Register</a>&nbsp;
 							<a href="forgotten_password.php" class="frontlink">Forgotten Password</a>&nbsp;
-			</td>
+			        </td>
 						</tr>
+						<tr><td colspan="3" class="error">
+						    If you are new to this site, please click 'Register' to create a new account!
+						    </td></tr>
+						
 					</TABLE>
 
 					</form>
 					</td>
 				</tr>
-
+            
 
 
 			</TABLE>

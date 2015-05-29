@@ -55,7 +55,7 @@
 		'"'.$user->username.'",' .
 		'"'.$user->hospital_name.'",' .
 		'"'.$user->home_telephone.'",' .
-		'"'.$user->work_telephone.'",' .
+		'"'.$user->mobile.'",' .
 		'"'.$user->mobile_telephone.'",' .
 		'"'.$user->bleep.'",' .
 		'"'.$user->address_line1.'",' .

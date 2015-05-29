@@ -386,7 +386,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `email2` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `hospital_name` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
   `home_telephone` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
-  `work_telephone` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
+  `mobile` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
   `mobile_telephone` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
   `bleep` varchar(15) COLLATE latin1_general_ci DEFAULT NULL,
   `address_line1` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
@@ -415,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
 -- Dumping data for table `profiles`
 --
 
-INSERT INTO `profiles` (`profile_id`, `user_id`, `title`, `firstname`, `lastname`, `email`, `email2`, `hospital_name`, `home_telephone`, `work_telephone`, `mobile_telephone`, `bleep`, `address_line1`, `address_line2`, `city`, `county`, `country`, `postcode`, `cDate`, `mDate`, `job_title_id`, `specialty_id`, `specialty2_id`, `band`, `gmc_reg`, `diet`, `how_hear`, `qualifications`, `photo`, `instructor`, `accessibility`) VALUES
+INSERT INTO `profiles` (`profile_id`, `user_id`, `title`, `firstname`, `lastname`, `email`, `email2`, `hospital_name`, `home_telephone`, `mobile`, `mobile_telephone`, `bleep`, `address_line1`, `address_line2`, `city`, `county`, `country`, `postcode`, `cDate`, `mDate`, `job_title_id`, `specialty_id`, `specialty2_id`, `band`, `gmc_reg`, `diet`, `how_hear`, `qualifications`, `photo`, `instructor`, `accessibility`) VALUES
 (62, 1, 'mr', 'Admin', 'User', 'admin', NULL, '', '', '', '', '', '', '', '', '', '', '', '2008-02-27 10:36:39', '2008-02-27 10:36:39', 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0);
 -- --------------------------------------------------------
 

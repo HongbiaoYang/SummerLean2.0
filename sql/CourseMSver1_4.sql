@@ -317,7 +317,7 @@ CREATE TABLE `profiles` (
   `email` varchar(60) collate latin1_general_ci NOT NULL,
   `hospital_name` varchar(60) collate latin1_general_ci NOT NULL,
   `home_telephone` varchar(15) collate latin1_general_ci default NULL,
-  `work_telephone` varchar(15) collate latin1_general_ci default NULL,
+  `mobile` varchar(15) collate latin1_general_ci default NULL,
   `mobile_telephone` varchar(15) collate latin1_general_ci default NULL,
   `bleep` varchar(15) collate latin1_general_ci default NULL,
   `address_line1` varchar(50) collate latin1_general_ci NOT NULL,

@@ -71,7 +71,7 @@
 			$error[0] = true;
 			$error[1] .= '<br>* Postcode is a required field';
 		}
-		if (strlen($_POST['work_tel']) == 0) {
+		if (strlen($_POST['mobile']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Work Telephone is a required field';
 		}

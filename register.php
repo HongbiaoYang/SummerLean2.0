@@ -36,7 +36,7 @@
 					   "postcode" => $_POST['postcode'],
 					   "cDate" => date("Y-m-d H:i:s"),
 					   "mDate" => date("Y-m-d H:i:s"),
-					   "work_telephone" => $_POST['work_tel'],
+					   "mobile" => $_POST['mobile'],
 					   "home_telephone" => $_POST['home_tel'],
 					   "mobile_telephone" => $_POST['mobile_tel'],
 					   "bleep" => $_POST['bleep'],
@@ -219,7 +219,7 @@
 										Work Tel.
 									</td>
 									<td>
-										<input type="text" name="work_tel" value="<?php echo $_POST['work_tel'] ?>">
+										<input type="text" name="mobile" value="<?php echo $_POST['mobile'] ?>">
 										&nbsp;<span class="required">*</span>
 									</td>
 								</tr>

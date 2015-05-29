@@ -160,6 +160,13 @@ function check_upload($file_upload)
     // Check if image file is a actual image or fake image
     if(isset($_POST["register"])) {
         
+        $tmp_file = $file_upload["tmp_name"];
+        if (strlen($tmp_file) == 0 || $tmp_file == '') {
+            $ulerror[1]  = "File is empty";
+            $ulerror[0] = 0;
+            return $ulerror;
+        }
+        
         $check = getimagesize($file_upload["tmp_name"]);
         
         if($check !== false) {

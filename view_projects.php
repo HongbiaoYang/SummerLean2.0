@@ -92,6 +92,9 @@
 										<h4>Projects</h4>
 									</td>
 								</tr>
+								
+								<tr><td align="center" ><font color="red" size="6">Projects will be available later</font></td></tr>
+							<!--
 							
 								<tr>
 									<td>
@@ -160,7 +163,7 @@
 				
 				
 			</td>
-		</tr>
+		</tr> -->
 	</TABLE>
 <?php
 	include(INCLUDES . 'rightmenu.php');
