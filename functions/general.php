@@ -256,8 +256,18 @@ function tep_build_checkbox($tablename, $menuname, $checked = false, $checked_id
 	$query = "select * from $tablename";
 	$result = tep_db_query($query);
 	$radios = '';
+	
+	$cnt=0;
 	if (tep_db_num_rows($result) > 0) {
+	    
+	    //$radio .= "<dl><dd>";
 		while ($row = tep_db_fetch_array($result)) {
+        
+        
+      $radios .= "<br/>";
+		    
+		   
+	
 			if ($checked && $checked_id == $row['id']) {
 				$radios .= '<input type="checkbox"  name="'.$menuname.'" value="'.$row['id'].'">'.$row['name'].'&nbsp;&nbsp;&nbsp;';
 			}
@@ -266,6 +276,7 @@ function tep_build_checkbox($tablename, $menuname, $checked = false, $checked_id
 				$radios .= '<input type="checkbox" name="'.$menuname.'" value="'.$row['id'].'">'.$row['name'].'&nbsp;&nbsp;&nbsp;';
 			}
 		}
+		
 		return $radios;
 	}
 	else

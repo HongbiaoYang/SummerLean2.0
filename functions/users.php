@@ -162,7 +162,7 @@ function check_upload($file_upload)
         
         $tmp_file = $file_upload["tmp_name"];
         if (strlen($tmp_file) == 0 || $tmp_file == '') {
-            $ulerror[1]  = "File is empty";
+            $ulerror[1]  = "File is empty, please upload your profile image";
             $ulerror[0] = 0;
             return $ulerror;
         }
@@ -192,9 +192,9 @@ function check_upload($file_upload)
         return $ulerror;
     }
     // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif") {
-        $ulerror[1] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    if(strcasecmp($imageFileType, "jpg") != 0 && strcasecmp($imageFileType, "png") != 0 && 
+        strcasecmp($imageFileType ,"jpeg") && strcasecmp($imageFileType, "gif") != 0) {
+        $ulerror[1] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.".$imageFileType;
         $ulerror[0] = 0;
         return $ulerror;
     }

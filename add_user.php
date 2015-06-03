@@ -73,10 +73,10 @@
 						   "country" => $_POST['country'],
 						   "pob" => $_POST['pob'],
 						   "gpa" => $_POST['gpa'],
+						   "semester" => $_POST['semester'],
 						   "dob" => $_POST['dob'],
 						   "background" => $backstr,		
 						   				   
-						   "insurance" => $_POST['insurance'],
 						   "arrival" => $_POST['arrival'],
 						   "departure" => $_POST['departure']
 						   );
@@ -86,6 +86,7 @@
             $sql_array['picture'] = $fname;
         }
         
+         echo "<script> alert_msg($fname); </script>";
 
 				// enter user profile details
 				tep_db_perform(TABLE_STUDENTS, $sql_array);
@@ -283,7 +284,7 @@
 								</td>
 								<td class="right">
 									<input type="text" name="pob" value="<?php echo $_POST['pob'] ?>" class="textbox1">
-									&nbsp;
+									&nbsp;<span class="required">*</span>
 								</td>
 							</tr>
 							
@@ -372,7 +373,25 @@
 								</td>
 							</tr>
 							
-							 <tr><td class="left"> <strong>Other:</strong</td><td></td></tr>
+							 <tr><td class="left"> <strong>Other:</strong</td><td>
+							       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    </td></tr>
 							 <tr>
 								<td align="right" class="left">
 								 Name:
@@ -401,7 +420,7 @@
 								</td>
 									<td class="right">
 									<input type="text" name="insurance" value="<?php echo $_POST['insurance'] ?>" class="textbox1">
-									&nbsp;
+									&nbsp;<span class="required">*</span>
 								</td>
 							</tr>
 							
@@ -411,7 +430,7 @@
 								</td>
 									<td class="right">
 									<input type="text" name="insurance_no" value="<?php echo $_POST['insurance_no'] ?>" class="textbox1">
-									&nbsp;
+									&nbsp;<span class="required">*</span>
 								</td>
 							</tr>
 							
@@ -566,7 +585,7 @@
 							<td class="right">
 								<!-- checkbox menu of vegitarian, halal, kosher --> 	
 								<?php echo tep_build_checkbox(TABLE_BACKGROUND, 'background[]');?>
-								&nbsp;<span class="required">*</span>
+								
 							</td>
 						</tr>
 							
@@ -602,6 +621,32 @@
 								</td>
 							  </tr>
 							
+								<tr>
+								<td align="right" class="left">
+									Semesters completed:
+								</td>
+								<td class="right">
+									<select name="semester">
+								<option value="N">--Select--</option>
+								<option value="1" <?php if ($_POST['semester'] == '1') echo "SELECTED";?>>1</option>
+								<option value="2" <?php if ($_POST['semester'] == '2') echo "SELECTED";?>>2</option>
+									<option value="3" <?php if ($_POST['semester'] == '3') echo "SELECTED";?>>3</option>
+								<option value="4" <?php if ($_POST['semester'] == '4') echo "SELECTED";?>>4</option>
+									<option value="5" <?php if ($_POST['semester'] == '5') echo "SELECTED";?>>5</option>
+								<option value="6" <?php if ($_POST['semester'] == '6') echo "SELECTED";?>>6</option>
+									<option value="7" <?php if ($_POST['semester'] == '7') echo "SELECTED";?>>7</option>
+								<option value="8" <?php if ($_POST['semester'] == '8') echo "SELECTED";?>>8</option>
+									<option value="9" <?php if ($_POST['semester'] == '9') echo "SELECTED";?>>9</option>
+								<option value="10" <?php if ($_POST['semester'] == '10') echo "SELECTED";?>>10</option>
+									<option value="11" <?php if ($_POST['semester'] == '11') echo "SELECTED";?>>11</option>
+								<option value="12" <?php if ($_POST['semester'] == '12') echo "SELECTED";?>>12</option>
+									<option value="13" <?php if ($_POST['semester'] == '13') echo "SELECTED";?>>>13</option>
+								<option value="14" <?php if ($_POST['semester'] == '14') echo "SELECTED";?>>Graduated</option>
+								</select>
+									&nbsp;<span class="required">* </span>
+								</td>
+							  </tr>
+							
 						</table>
 					</td>
 				</tr>
@@ -621,7 +666,18 @@
 					    	Arrival Date:
 					    </td>
 					    <td class="right">
-					    	<input name="arrival" type="date" id="arrival"  size="20" maxlength="20" value="<?php echo $_POST['arrival']?>"/></td>
+					    	<input name="arrival" type="date" id="arrival"  size="20" maxlength="20" value="<?php echo $_POST['arrival']?>"/>&nbsp;<span class="required">*</span> </td>
+					  </tr>
+					  
+					  <tr>
+					    <td align="right" class="left">
+					    	Arrival Time:
+					    </td>
+					    <td class="right">
+					    	<input name="arr_time" type="time" id="arr_time"  size="20" maxlength="20" value="<?php echo $_POST['arr_time']
+					    	?>"
+					    	 /> &nbsp;<span class="required">*</span>   
+					    	</td>
 					  </tr>
 					  
 					  <tr>
@@ -631,9 +687,23 @@
 					    <td class="right">
 					    	<input name="departure" type="date" id="departure"  size="20" maxlength="20" value="<?php echo $_POST['departure']?>"
 					    	 /> 
-					    	 <button  Onmouseup ="clickButton()" >Check Duration</button>
+					    	
+					    	 &nbsp;<span class="required">*</span> 
 					    	</td>
 					  </tr>
+					  
+					    <tr>
+					    <td align="right" class="left">
+					    	Departure Time:
+					    </td>
+					    <td class="right">
+					    	<input name="dep_time" type="time" id="dep_time"  size="20" maxlength="20" value="<?php echo $_POST['dep_time']
+					    	?>"
+					    	 /> &nbsp;<span class="required">*</span>   
+					    	  <button  Onmouseup ="clickButton()" >Check Duration</button>
+					    	</td>
+					  </tr>
+					  
 
 					  					  
 					    <tr>
@@ -642,6 +712,7 @@
 					    </td>
 					    <td class="right">
 					    	<input type="file" name="upload" id="upload">
+					  &nbsp;<span class="required">* </span>
 					  </tr>
 							
 			

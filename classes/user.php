@@ -43,6 +43,7 @@ var $specialty_id;
 var $band;
 var $gmc_reg;
 var $diet;
+var $picture;
 
 
 
@@ -86,7 +87,7 @@ function set_profile() {
 	$this->fullname = $row['fullName'];
 	$this->gender = $row['gender'];
 	$this->martial = $row['martial'];
-    
+    	$this->picture = $row['picture'];
 
 	$this->netid = $row['netid'];
 	$this->tnid = $row['TNID'];

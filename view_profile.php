@@ -186,12 +186,22 @@
 											
 											<tr>
 												<td class="left">
-													Work Phone:
+													Mobile Phone:
 												</td>
 												<td class="right">
 													<?php echo $user->mobile; ?>
 												</td>
 											</tr>
+											
+											<tr>
+												<td class="left">
+													Profile:
+												</td>
+												<td class="right">
+												    <Img src="uploads/<?php echo $user->picture; ?>" width ="200" />
+												</td>
+											</tr>
+											
 										</table>
 									</td>
 								</tr>

@@ -19,8 +19,9 @@
 		$errors = tep_validate_registration_swb();
     
     
-    //$contact_tel_ab = $_POST['contact_tel_ab1'].$_POST['contact_tel_ab2'];
-    //echo "<script> alert('sfsdfsf'+$contact_tel_ab); </script>";
+    // $contact_tel_ab = $_POST['contact_tel_ab1'].$_POST['contact_tel_ab2'];
+    
+    // echo "<script> alert($FILES['upload']); </script>";
         
 		// replace with moodle class upload.
 
@@ -49,6 +50,7 @@
 						   "lastname2" => $_POST['lastname2'],
 						   "middlename" => $_POST['middlename'],
 						   "fullname" => $_POST['fullname'],
+						   "iieid" => $_POST['iieid'],
 						   "gender" => $_POST['gender'],
 						   "martial" => $_POST['martial'],		
 						   "mobile" => $_POST['mobile'],
@@ -71,6 +73,10 @@
 						   "contact_tel_ab" => $contact_tel_ab,
 						   "contact_lan" => $_POST['contact_lan'],
 						   
+						   "plan" => $_POST['plan'],
+						   "meal" => $_POST['meal'],
+						   
+						   
 						   "Englishwrite" => $_POST['ewrite'],
 						   "Englishlisten" => $_POST['elisten'],
 						   "Englishspeak" => $_POST['espeak'],
@@ -83,11 +89,14 @@
 						   "pob" => $_POST['pob'],
 						   "gpa" => $_POST['gpa'],
 						   "gpa" => $_POST['gpa_br'],
+						   "semester" => $_POST['semester'],
 						   "dob" => $_POST['dob'],
 						   "background" => $backstr,			
-						   "departure" => $_POST['departure']
+						   "departure" => $_POST['departure'],
+						   "dep_time" => $_POST['dep_time'],
 						   );
 
+        
         if ($fname = do_upload($_FILES['upload'], $user_id)) {
             $sql_array['picture'] = $fname;
         }
@@ -244,6 +253,16 @@
 								</td>
 							</tr>
 							
+								<tr>
+								<td align="right" class="left">
+									IIE ID:
+								</td>
+								<td class="right">
+									<input type="text" name="iieid" value="<?php echo $_POST['iieid'] ?>" class="textbox1">
+									&nbsp;<span class="required">*</span>
+							</td>
+							</tr>
+							
 							
 							
 							
@@ -291,7 +310,7 @@
 								</td>
 								<td class="right">
 									<input type="text" name="pob" value="<?php echo $_POST['pob'] ?>" class="textbox1">
-									&nbsp;
+									&nbsp;<span class="required">*</span>
 								</td>
 							</tr>
 							
@@ -387,7 +406,27 @@
 								</td>
 							</tr>
 							
-							 <tr><td class="left"> <strong>Other:</strong</td><td></td></tr>
+							 <tr><td class="left"> <strong>Other:</strong>
+								    
+							    </td><td>
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							     </td></tr>
 							 <tr>
 								<td align="right" class="left">
 								 Name:
@@ -439,7 +478,7 @@
 							 
 								<tr>
 								<td align="right" class="left">
-									Name:
+									Full Name:
 								</td>
 									<td class="right">
 									<input type="text" name="contact_name" value="<?php echo $_POST['contact_name'] ?>" class="textbox1">
@@ -475,7 +514,7 @@
 							 
 								<tr>
 								<td align="right" class="left">
-									Name:
+									Full Name:
 								</td>
 									<td class="right">
 									<input type="text" name="contact_name_ab" value="<?php echo $_POST['contact_name_ab'] ?>" class="textbox1">
@@ -547,6 +586,83 @@
 						</td>
 				</tr>
 					
+					
+					<tr>
+					<td>
+						<h4>Housing and Meals</h4>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table width="100%">
+						
+						<tr>
+							<td align="right" class="left">
+								Have you already chosen a meal plan or stipend:
+							</td>
+							<td class="right">
+							<select name="plan">
+								<option value="N">--Select--</option>
+								<option value="Y" <?php if ($_POST['plan'] == 'Y') echo "SELECTED";?>>Yes</option>
+								<option value="N" <?php if ($_POST['plan'] == 'N') echo "SELECTED";?>>No</option>
+								</select> 	&nbsp;<span class="required">*</span>   
+								            (That includes month of July)
+							</td>
+						</tr>
+				
+				    	<tr>
+							<td align="right" class="left">
+								If yes, what was your choice? If no, what would you choose:
+							</td>
+							<td class="right">
+							<select name="meal">
+								<option value="N">--Select--</option>
+								<option value="IIE" <?php if ($_POST['meal'] == 'IIE') echo "SELECTED";?>>IIE Summer Meal Stipend</option>
+								<option value="UT" <?php if ($_POST['meal'] == 'UT') echo "SELECTED";?>>University Meal Plan (UT Dining Dollars:$400)</option>
+								</select> 	&nbsp;<span class="required">*</span>   
+								   
+							</td>
+						</tr>
+					
+					<tr>	<td align="center" class="center" colspan="2">NOTE: If you have made a choice, you can not change!<br/>
+					Grantees are not allowed to receive a Summer meal stipend and a University meal plan. If you have collected a monthly meal stipend and IIE receiveds an invoice for our University meal plan, you will be asked to refund your meal stipend disbursement.
+					</td></tr>
+					
+					
+					<tr><td colspan="2"><hr></td></tr>
+					
+					 
+					 
+					 
+					 <tr>
+					    <td align="right" class="left">
+					    	Departure Date:
+					    </td>
+					    <td class="right">
+					   			<select name="departure">
+								<option value="N">--Select--</option>
+								<option value="2015-08-01" <?php if ($_POST['departure'] == '2015-08-01') echo "SELECTED";?>>08/01/2015, Sartuday</option>
+								<option value="2015-08-02" <?php if ($_POST['departure'] == '2015-08-02') echo "SELECTED";?>>08/02/2015, Sunday</option>
+								</select> 	
+								&nbsp;<span class="required">*</span>   							  
+
+					    	</td>
+					  </tr>
+					  
+					    <tr>
+					    <td align="right" class="left">
+					    	Departure Time:
+					    </td>
+					    <td class="right">
+					    	<input name="dep_time" type="time" id="dep_time"  size="20" maxlength="20" value="<?php echo $_POST['dep_time']?>"
+					    	 /> &nbsp;<span class="required">*</span>   
+					    	</td>
+					  </tr>
+					
+					</table>
+						</td>
+				</tr>
+					
 				
 				
 				<tr>
@@ -598,7 +714,7 @@
 						
 						<tr>
 							<td align="right" class="left">
-								Background Knowledge:
+								Background Knowledge & Experience:
 							</td>
 							<td class="right">
 								<!-- checkbox menu of vegitarian, halal, kosher --> 	
@@ -671,16 +787,33 @@
 								</td>
 							  </tr>
 							  
-							   <tr>
-					    <td align="right" class="left">
-					    	Departure Date:
-					    </td>
-					    <td class="right">
-					    	<input name="departure" type="date" id="departure"  size="20" maxlength="20" value="<?php echo $_POST['departure']?>"
-					    	 /> 
-
-					    	</td>
-					  </tr>
+			
+								<tr>
+								<td align="right" class="left">
+									semester completed:
+								</td>
+								<td class="right">
+									<select name="semester">
+								<option value="N">--Select--</option>
+								<option value="1" <?php if ($_POST['semester'] == '1') echo "SELECTED";?>>1</option>
+								<option value="2" <?php if ($_POST['semester'] == '2') echo "SELECTED";?>>2</option>
+									<option value="3" <?php if ($_POST['semester'] == '3') echo "SELECTED";?>>3</option>
+								<option value="4" <?php if ($_POST['semester'] == '4') echo "SELECTED";?>>4</option>
+									<option value="5" <?php if ($_POST['semester'] == '5') echo "SELECTED";?>>5</option>
+								<option value="6" <?php if ($_POST['semester'] == '6') echo "SELECTED";?>>6</option>
+									<option value="7" <?php if ($_POST['semester'] == '7') echo "SELECTED";?>>7</option>
+								<option value="8" <?php if ($_POST['semester'] == '8') echo "SELECTED";?>>8</option>
+									<option value="9" <?php if ($_POST['semester'] == '9') echo "SELECTED";?>>9</option>
+								<option value="10" <?php if ($_POST['semester'] == '10') echo "SELECTED";?>>10</option>
+									<option value="11" <?php if ($_POST['semester'] == '11') echo "SELECTED";?>>11</option>
+								<option value="12" <?php if ($_POST['semester'] == '12') echo "SELECTED";?>>12</option>
+									<option value="13" <?php if ($_POST['semester'] == '13') echo "SELECTED";?>>>13</option>
+								<option value="14" <?php if ($_POST['semester'] == '14') echo "SELECTED";?>>Graduated</option>
+								</select>
+									&nbsp;<span class="required">* </span>
+								</td>
+							  </tr>
+			
 					  
 					     <tr>
 					    <td align="right" class="left">
@@ -688,6 +821,7 @@
 					    </td>
 					    <td class="right">
 					    	<input type="file" name="upload" id="upload">
+					    	&nbsp;<span class="required">* </span>
 					  </tr>
 					  
 						</table>

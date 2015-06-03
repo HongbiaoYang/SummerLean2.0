@@ -47,6 +47,10 @@
 			$error[0] = true;
 			$error[1] .= '<br>* Country is a required field';
 		}
+		 if (strlen($_POST['pob']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Place of Birth is a required field';
+		}
 		if (strlen($_POST['dob']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Date of Birth is a required field';
@@ -79,6 +83,10 @@
 			$error[0] = true;
 			$error[1] .= '<br>* GPA is a required field';
 		}
+		if (strlen($_POST['semester']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Semester is a required field';
+		}
 		if (strlen($_POST['arrival']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Arrival Date is a required field';
@@ -88,11 +96,11 @@
 			$error[1] .= '<br>* Departure Date is a required field';
 		}
 		
-//		$ulerror = check_upload($_FILES['upload']);
-//		if ($ulerror[0] == 0) {
-//		    $error[0] = true;
-//		    $error[1] .= '<br>* '.$ulerror[1];
-//		}
+		$ulerror = check_upload($_FILES['upload']);
+		if ($ulerror[0] == 0) {
+		    $error[0] = true;
+		    $error[1] .= '<br>* '.$ulerror[1];
+		}
 		
 
 		return $error;
@@ -105,7 +113,6 @@
 	function tep_validate_registration_swb($type = '') {
 
 		$error[0] = false;
-		$error[1] = "what the fuck";
 		if ($type != 'profile') {
 			if (!tep_validate_email($_POST['email'])) {
 				$error[0] = true;
@@ -136,9 +143,29 @@
 				$error[0] = true;
 				$error[1] .= '<br>* Name on Certificate is a required field';
 		}
+		if (strlen($_POST['iieid']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* IIE ID is a required field';
+		}
+		if (strlen($_POST['plan']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Meal Plan is a required field';
+		}
+		if (strlen($_POST['meal']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Meal Plan is a required field';
+		}
 		if (!tep_validate_email($_POST['email'])) {
 			$error[0] = true;
 			$error[1] .= '<br>* E-Mail address not valid';
+		}
+		 if (strlen($_POST['country']) == 0 || $_POST['country'] == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Country is a required field';
+		}
+		 if (strlen($_POST['pob']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Place of Birth is a required field';
 		}
 		if (strlen($_POST['dob']) == 0) {
 			$error[0] = true;
@@ -208,6 +235,27 @@
 			$error[0] = true;
 			$error[1] .= '<br>* GPA in Brazil is a required field';
 		}
+	  if (strlen($_POST['semester']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Semester is a required field';
+		}
+		if (strlen($_POST['departure']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Departure Date is a required field';
+		}
+		if (strlen($_POST['dep_time']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Departure Time is a required field';
+		}
+		
+		
+		$ulerror = check_upload($_FILES['upload']);
+		if ($ulerror[0] == 0) {
+		    $error[0] = true;
+		    $error[1] .= '<br>* '.$ulerror[1];
+		}
+		
+		
 
 		return $error;
 	}
