@@ -225,7 +225,7 @@
 								</td>
 								<td class="right">
 									<input type="text" name="lastname2" value="<?php echo $_POST['lastname2'] ?>" class="textbox1">
-									&nbsp;(Optioal)
+									&nbsp;(Optional)
 								</td>
 							</tr>
 							
@@ -325,7 +325,7 @@
 							
 							<tr>
 								<td align="right" class="left">
-								 Facebook:
+								 Facebook ID/URL:
 								</td>
 								<td class="right">
 									<input type="text" name="facebook" value="<?php echo $_POST['facebook'] ?>" class="textbox1">
@@ -335,7 +335,7 @@
 							
 							<tr>
 								<td align="right" class="left">
-								 Twitter:
+								 Twitter ID/URL:
 								</td>
 								<td class="right">
 									<input type="text" name="twitter" value="<?php echo $_POST['twitter'] ?>" class="textbox1">
@@ -345,7 +345,7 @@
 							
 							<tr>
 								<td align="right" class="left">
-								 Whatsapp:
+								 Whatsapp ID:
 								</td>
 								<td class="right">
 									<input type="text" name="whatsapp" value="<?php echo $_POST['whatsapp'] ?>" class="textbox1">
@@ -355,7 +355,7 @@
 							
 							<tr>
 								<td align="right" class="left">
-								 Google Hangout:
+								 Google Hangout ID/URL:
 								</td>
 								<td class="right">
 									<input type="text" name="google" value="<?php echo $_POST['google'] ?>" class="textbox1">
@@ -365,15 +365,14 @@
 							
 							<tr>
 								<td align="right" class="left">
-								 Wechat:
+								 Wechat ID:
 								</td>
 								<td class="right">
 									<input type="text" name="wechat" value="<?php echo $_POST['wechat'] ?>" class="textbox1">
 									&nbsp;
 								</td>
 							</tr>
-							
-							 <tr><td class="left"> <strong>Other:</strong</td><td>
+								 <tr><td class="left"> <strong>Other SNS (if any):</strong</td><td>
 							       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -394,7 +393,7 @@
 							    </td></tr>
 							 <tr>
 								<td align="right" class="left">
-								 Name:
+								 SNS Name:
 								</td>
 								<td class="right">
 									<input type="text" name="sns_name" value="<?php echo $_POST['sns_name'] ?>" class="textbox1">
@@ -404,7 +403,7 @@
 							
 							 <tr>
 								<td align="right" class="left">
-								 ID:
+								 SNS ID:
 								</td>
 								<td class="right">
 									<input type="text" name="sns_id" value="<?php echo $_POST['sns_id'] ?>" class="textbox1">
@@ -413,7 +412,11 @@
 							</tr>
 							
 							
+							<tr><td></td><td></td></tr>
+							<tr><td></td><td></td></tr>
 							
+							 <tr><td class="left"> <strong>Insurance Information:</strong</td><td></td></tr>
+							 
 								<tr>
 								<td align="right" class="left">
 									Primary Insurance Carrier:
@@ -640,7 +643,7 @@
 								<option value="10" <?php if ($_POST['semester'] == '10') echo "SELECTED";?>>10</option>
 									<option value="11" <?php if ($_POST['semester'] == '11') echo "SELECTED";?>>11</option>
 								<option value="12" <?php if ($_POST['semester'] == '12') echo "SELECTED";?>>12</option>
-									<option value="13" <?php if ($_POST['semester'] == '13') echo "SELECTED";?>>>13</option>
+									<option value="13" <?php if ($_POST['semester'] == '13') echo "SELECTED";?>> >12</option>
 								<option value="14" <?php if ($_POST['semester'] == '14') echo "SELECTED";?>>Graduated</option>
 								</select>
 									&nbsp;<span class="required">* </span>
@@ -708,11 +711,11 @@
 					  					  
 					    <tr>
 					    <td align="right" class="left">
-					    	Profile Picture (optional):
+					    	Profile Picture:
 					    </td>
 					    <td class="right">
 					    	<input type="file" name="upload" id="upload">
-					  &nbsp;<span class="required">* </span>
+					  &nbsp;<span class="required">* </span> Upload Image smaller than 2.0MB
 					  </tr>
 							
 			

@@ -47,6 +47,10 @@
 			$error[0] = true;
 			$error[1] .= '<br>* Country is a required field';
 		}
+		 if (strlen($_POST['mobile']) != 0 && is_numeric($_POST['mobile']) == false) {
+			$error[0] = true;
+			$error[1] .= '<br>* Mobile phone need to be numbers'.$_POST['mobile']."=";
+		}
 		 if (strlen($_POST['pob']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Place of Birth is a required field';
@@ -71,6 +75,26 @@
 			$error[0] = true;
 			$error[1] .= '<br>* Gender is a required field';
 		}
+		if (strlen($_POST['contact_name_ab']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Name of Emergency contact abroad is a required field';
+		}
+		if (strlen($_POST['contact_relation_ab']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Relationship of Emergency contact abroad is a required field';
+		}
+		if (strlen($_POST['contact_tel_ab1']) == 0 || $_POST['contact_tel_ab1'] == 0 ||
+		    strlen($_POST['contact_tel_ab2']) == 0 ) {
+			$error[0] = true;
+			$error[1] .= '<br>* Telephone of Emergency contact abroad is a required field';
+		} else if (is_numeric($_POST['contact_tel_ab2']) == false) {
+		  $error[0] = true;
+			$error[1] .= '<br>* Telephone of Emergency contact abroad need to be numbers';  
+		}
+		if (strlen($_POST['contact_lan']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* The language of Emergency contact abroad is a required field';
+		}
 		if (strlen($_POST['university']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* University is a required field';
@@ -82,8 +106,21 @@
 		if (strlen($_POST['gpa']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* GPA is a required field';
+		} else if (is_numeric($_POST['gpa']) == false) {
+		 	$error[0] = true;
+			$error[1] .= '<br>* GPA need to be a number!';		    
+		} else if ($_POST['gpa'] < 0 || $_POST['gpa'] > 4) {
+		  $error[0] = true;
+			$error[1] .= '<br>* GPA need to be with in [0, 4.0]!';		      
 		}
-		if (strlen($_POST['semester']) == 0) {
+		if (strlen($_POST['toefl']) == 0) {
+			$error[0] = true;
+			$error[1] .= '<br>* Toefl score is a required field';
+		}else if (is_numeric($_POST['toefl']) == false) {
+		 	$error[0] = true;
+			$error[1] .= '<br>* Toefl score need to be a number!';		    
+		}		
+	  if (strlen($_POST['semester']) == 0 || $_POST['semester'] == 'N') {
 			$error[0] = true;
 			$error[1] .= '<br>* Semester is a required field';
 		}
@@ -146,12 +183,15 @@
 		if (strlen($_POST['iieid']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* IIE ID is a required field';
+		} else if (is_numeric($_POST['iieid']) == false) {
+			$error[0] = true;
+			$error[1] .= '<br>* IIE ID should be numbers!';
 		}
-		if (strlen($_POST['plan']) == 0) {
+		if (strlen($_POST['plan']) == 0 || $_POST['plan'] == 'N') {
 			$error[0] = true;
 			$error[1] .= '<br>* Meal Plan is a required field';
 		}
-		if (strlen($_POST['meal']) == 0) {
+		if (strlen($_POST['meal']) == 0 || $_POST['meal'] == 'N') {
 			$error[0] = true;
 			$error[1] .= '<br>* Meal Plan is a required field';
 		}
@@ -163,6 +203,10 @@
 			$error[0] = true;
 			$error[1] .= '<br>* Country is a required field';
 		}
+	   if (strlen($_POST['mobile']) != 0 && is_numeric($_POST['mobile']) == false) {
+			$error[0] = true;
+			$error[1] .= '<br>* Mobile phone need to be numbers'.$_POST['mobile']."=";
+		}
 		 if (strlen($_POST['pob']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Place of Birth is a required field';
@@ -170,7 +214,18 @@
 		if (strlen($_POST['dob']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Date of Birth is a required field';
-		}
+		} else {
+		  
+		  $dob_date = date_create($_POST['dob']);
+		  $today_date = date_create('now');
+		  $inter = date_diff($dob_date, $today_date);
+		  
+		  if ($inter->invert > 0) {
+		    
+    			$error[0] = true;
+    			$error[1] .= '<br>* Date of Birth cannot be late than today!';
+		  }
+		} 
 		if (strlen($_POST['ewrite']) == 0 || $_POST['ewrite'] == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* English Writing is a required field';
@@ -200,9 +255,12 @@
 			$error[1] .= '<br>* Relationship of Emergency contact abroad is a required field';
 		}
 		if (strlen($_POST['contact_tel_ab1']) == 0 || $_POST['contact_tel_ab1'] == 0 ||
-		    strlen($_POST['contact_tel_ab2']) == 0 || $_POST['contact_tel_ab2'] == 0) {
+		    strlen($_POST['contact_tel_ab2']) == 0 ) {
 			$error[0] = true;
 			$error[1] .= '<br>* Telephone of Emergency contact abroad is a required field';
+		} else if (is_numeric($_POST['contact_tel_ab2']) == false) {
+		  $error[0] = true;
+			$error[1] .= '<br>* Telephone of Emergency contact abroad need to be numbers';  
 		}
 		if (strlen($_POST['contact_lan']) == 0) {
 			$error[0] = true;
@@ -230,12 +288,24 @@
 		if (strlen($_POST['gpa']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* GPA in US is a required field';
+		}else if (is_numeric($_POST['gpa']) == false) {
+		 	$error[0] = true;
+			$error[1] .= '<br>* GPA need to be a number!';		    
+		} else if ($_POST['gpa'] < 0 || $_POST['gpa'] > 4) {
+		  $error[0] = true;
+			$error[1] .= '<br>* GPA need to be with in [0, 4.0]!';		      
 		}
 		if (strlen($_POST['gpa_br']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* GPA in Brazil is a required field';
+		} else if (is_numeric($_POST['gpa_br']) == false) {
+		 	$error[0] = true;
+			$error[1] .= '<br>* GPA in Brazil need to be a number!';		    
+		}	else if ($_POST['gpa_br'] < 0 || $_POST['gpa_br'] > 4) {
+		  $error[0] = true;
+			$error[1] .= '<br>* GPA in Brazil need to be with in [0, 4.0]!';		      
 		}
-	  if (strlen($_POST['semester']) == 0) {
+	  if (strlen($_POST['semester']) == 0 || $_POST['semester'] == 'N') {
 			$error[0] = true;
 			$error[1] .= '<br>* Semester is a required field';
 		}

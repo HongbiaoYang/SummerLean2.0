@@ -161,6 +161,13 @@ function check_upload($file_upload)
     if(isset($_POST["register"])) {
         
         $tmp_file = $file_upload["tmp_name"];
+        
+        if ($file_upload["size"] == 0) {
+            $ulerror[1]  = "Sorry, file upload error. Make sure to upload a file less than 2MB";
+            $ulerror[0]  = 0;
+            return $ulerror;
+        }
+        
         if (strlen($tmp_file) == 0 || $tmp_file == '') {
             $ulerror[1]  = "File is empty, please upload your profile image";
             $ulerror[0] = 0;
@@ -186,15 +193,15 @@ function check_upload($file_upload)
         return $ulerror;
     }
     // Check file size
-    if ($file_upload["size"] > 2000000) {
-        $ulerror[1] =  "Sorry, your file is too large.";
+    if ($file_upload["size"] > 2097152) {
+        $ulerror[1] =  "Sorry, your file is too large. Make sure the file you upload is less than 2MB";
         $ulerror[0] = 0;
         return $ulerror;
     }
     // Allow certain file formats
     if(strcasecmp($imageFileType, "jpg") != 0 && strcasecmp($imageFileType, "png") != 0 && 
         strcasecmp($imageFileType ,"jpeg") && strcasecmp($imageFileType, "gif") != 0) {
-        $ulerror[1] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.".$imageFileType;
+        $ulerror[1] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         $ulerror[0] = 0;
         return $ulerror;
     }

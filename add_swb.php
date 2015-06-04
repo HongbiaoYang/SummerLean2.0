@@ -603,8 +603,8 @@
 							<td class="right">
 							<select name="plan">
 								<option value="N">--Select--</option>
-								<option value="Y" <?php if ($_POST['plan'] == 'Y') echo "SELECTED";?>>Yes</option>
-								<option value="N" <?php if ($_POST['plan'] == 'N') echo "SELECTED";?>>No</option>
+								<option value="YES" <?php if ($_POST['plan'] == 'YES') echo "SELECTED";?>>Yes</option>
+								<option value="NO" <?php if ($_POST['plan'] == 'NO') echo "SELECTED";?>>No</option>
 								</select> 	&nbsp;<span class="required">*</span>   
 								            (That includes month of July)
 							</td>
@@ -807,7 +807,7 @@
 								<option value="10" <?php if ($_POST['semester'] == '10') echo "SELECTED";?>>10</option>
 									<option value="11" <?php if ($_POST['semester'] == '11') echo "SELECTED";?>>11</option>
 								<option value="12" <?php if ($_POST['semester'] == '12') echo "SELECTED";?>>12</option>
-									<option value="13" <?php if ($_POST['semester'] == '13') echo "SELECTED";?>>>13</option>
+									<option value="13" <?php if ($_POST['semester'] == '13') echo "SELECTED";?>> >12</option>
 								<option value="14" <?php if ($_POST['semester'] == '14') echo "SELECTED";?>>Graduated</option>
 								</select>
 									&nbsp;<span class="required">* </span>
@@ -817,11 +817,11 @@
 					  
 					     <tr>
 					    <td align="right" class="left">
-					    	Profile Picture (optional):
+					    	Profile Picture:
 					    </td>
 					    <td class="right">
-					    	<input type="file" name="upload" id="upload">
-					    	&nbsp;<span class="required">* </span>
+					    	<input type="file" name="upload" id="upload" >
+					    	&nbsp;<span class="required">* </span>Upload Image smaller than 2.0MB
 					  </tr>
 					  
 						</table>
