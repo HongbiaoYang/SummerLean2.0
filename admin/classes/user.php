@@ -21,10 +21,17 @@ var $admin_class;
 var $title;
 var $firstname;
 var $lastname;
+var $gender;
+var $martial;
+var $insurance;
+var $insurance_no;
 var $hospital_name;
 var $home_telephone;
 var $mobile;
-var $mobile_telephone;
+var $facebook;
+var $twitter;
+var $whatsapp;
+var $google;
 var $bleep;
 var $address_line1;
 var $address_line2;
@@ -36,11 +43,12 @@ var $cDate;
 var $mDate;
 var $job_title_id;
 var $specialty_id;
-var $specialty2_id;
 var $band;
 var $gmc_reg;
 var $diet;
-
+var $picture;
+var $background;
+var $semester;
 
 
 function user($username) {
@@ -68,38 +76,60 @@ function user($username) {
 	}
 
 	$this->username = $username;
+	$this->username2 = 'goodjob';
 
 
 }
 
 function set_profile() {
-	$query = "select * from profiles where user_id = '$this->id' LIMIT 1";
+	$query = "select * from tbl_students where stuindex = '$this->id' LIMIT 1";
 	$result = tep_db_query($query);
 	$row = tep_db_fetch_array($result);
-	$this->title = $row['title'];
-	$this->firstname = $row['firstname'];
-	$this->lastname = $row['lastname'];
+	$this->firstname = $row['FirstName'];
+	$this->middlename = $row['MiddleName'];
+	$this->lastname = $row['LastName'];
+	$this->lastname2 = $row['LastName2'];
+	$this->fullname = $row['fullName'];
+	$this->gender = $row['gender'];
+	$this->martial = $row['martial'];
+    	$this->picture = $row['picture'];
+
+	$this->netid = $row['netid'];
+	$this->tnid = $row['TNID'];
+	$this->email = $row['Email'];
+	$this->country = $row['country'];
+	$this->team = $row['Team'];
+	$this->choice1 = $row['Choice1'];
+	$this->choice2 = $row['Choice2'];
+	$this->choice3 = $row['Choice3'];
+	$this->choice4 = $row['Choice4'];
+	$this->insurance = $row['insurance'];
+	$this->insurance_no = $row['insurance_no'];
+	$this->background = $row['background'];
+	$this->semester = $row['Semester'];
+
 	$this->hospital_name = $row['hospital_name'];
-	$this->email2 = $row['email2'];
 	$this->home_telephone = $row['home_telephone'];
 	$this->mobile = $row['mobile'];
-	$this->mobile_telephone = $row['mobile_telephone'];
+	$this->facebook = $row['facebook'];
+	$this->twitter = $row['twitter'];
+	$this->whatsapp = $row['whatsapp'];
+	$this->google = $row['google'];
 	$this->bleep = $row['bleep'];
 	$this->address_line1 = $row['address_line1'];
 	$this->address_line2 = $row['address_line2'];
 	$this->city = $row['city'];
-	$this->county = $row['county'];
 	$this->postcode = $row['postcode'];
 	$this->country = $row['country'];
 	$this->cDate = $row['cDate'];
 	$this->mDate = $row['mDate'];
 	$this->job_title_id = $row['job_title_id'];
 	$this->specialty_id = $row['specialty_id'];
-	$this->specialty2_id = $row['specialty2_id'];
 	$this->band = $row['band'];
 	$this->gmc_reg = $row['gmc_reg'];
 	$this->diet = $row['diet'];
 	$this->how_hear = $row['how_hear'];
+	$this->accessibility = $row['accessibility'];
 }
 
 

@@ -28,7 +28,11 @@ var $insurance_no;
 var $hospital_name;
 var $home_telephone;
 var $mobile;
-var $mobile_telephone;
+var $team;
+var $facebook;
+var $twitter;
+var $whatsapp;
+var $google;
 var $bleep;
 var $address_line1;
 var $address_line2;
@@ -36,6 +40,7 @@ var $city;
 var $county;
 var $postcode;
 var $country;
+var $swb;
 var $cDate;
 var $mDate;
 var $job_title_id;
@@ -44,7 +49,8 @@ var $band;
 var $gmc_reg;
 var $diet;
 var $picture;
-
+var $background;
+var $semester;
 
 
 function user($username) {
@@ -85,26 +91,36 @@ function set_profile() {
 	$this->lastname = $row['LastName'];
 	$this->lastname2 = $row['LastName2'];
 	$this->fullname = $row['fullName'];
-	$this->gender = $row['gender'];
+	$this->gender = $row['Gender'];
 	$this->martial = $row['martial'];
     	$this->picture = $row['picture'];
 
 	$this->netid = $row['netid'];
 	$this->tnid = $row['TNID'];
 	$this->email = $row['Email'];
-	$this->country = $row['Nationality'];
+	$this->country = $row['country'];
+	$this->swb = $row['swb'];
 	$this->team = $row['Team'];
-	$this->choice1 = $row['Choice1'];
-	$this->choice2 = $row['Choice2'];
-	$this->choice3 = $row['Choice3'];
-	$this->choice4 = $row['Choice4'];
 	$this->insurance = $row['insurance'];
 	$this->insurance_no = $row['insurance_no'];
+	$this->background = $row['background'];
+	$this->semester = $row['Semester'];
+
+	$this->dep_date = $row['departure'];
+	$this->dep_time = $row['dep_time'];
+	$this->arr_date = $row['arrival'];
+	$this->arr_time = $row['arr_time'];
+	$this->flight = $row['flight'];
+	$this->ticket = $row['ticket'];
+	
 
 	$this->hospital_name = $row['hospital_name'];
 	$this->home_telephone = $row['home_telephone'];
 	$this->mobile = $row['mobile'];
-	$this->mobile_telephone = $row['mobile_telephone'];
+	$this->facebook = $row['facebook'];
+	$this->twitter = $row['twitter'];
+	$this->whatsapp = $row['whatsapp'];
+	$this->google = $row['google'];
 	$this->bleep = $row['bleep'];
 	$this->address_line1 = $row['address_line1'];
 	$this->address_line2 = $row['address_line2'];
@@ -122,5 +138,20 @@ function set_profile() {
 	$this->accessibility = $row['accessibility'];
 }
 
+function set_choices() {
+	$query = "select * from tbl_choices where stuindex = '$this->id' LIMIT 1";
+	$result = tep_db_query($query);
+	$row = tep_db_fetch_array($result);
+	$this->choice1 = $row['choice1'];
+	$this->choice2 = $row['choice2'];
+	$this->choice3 = $row['choice3'];
+	$this->choice4 = $row['choice4'];
+	$this->choice5 = $row['choice5'];
+	$this->trip1 = $row['trip1'];
+	$this->trip2 = $row['trip2'];
+	$this->weekend1 = $row['weekend1'];
+	$this->weekend2 = $row['weekend2'];
+
+}
 
 }

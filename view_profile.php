@@ -13,6 +13,13 @@
 	}
 	$user = $_SESSION['learner'];
 	$user->set_profile();
+	
+	if ($user->instructor == 1) {
+	    
+	    $user = new instructor($user->username);  
+	    $user->instructor_attributes();
+	}
+	
 	include(INCLUDES . 'header.php');
 	include(INCLUDES . 'front_header.php');
 
@@ -57,6 +64,7 @@
 
 	?>
 
+  <!-- Table 1( -->
 	<TABLE width=<?php echo TABLE_WIDTH; ?> cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff">
 		<tr>
 			<td colspan=3><IMG height=10 src="images/blank.gif" width=1></td>
@@ -74,36 +82,50 @@
 			<td colspan="3">&nbsp;</td>
 		</tr>
 	</TABLE>
+	<!-- Table 1) -->
+	
+	<!-- Table 2( -->
 	<TABLE width=<?php echo TABLE_WIDTH; ?> cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff">
 		<tr>
 			<td align="middle">
 				<br><br>
 				<!-- main content starts here -->
+				<!-- Table 21( -->
 				<table width=<?php echo SEC_TABLE_WIDTH; ?> align="center" cellspacing="1" cellpadding="3">
 					<tr>
 						<td>
+						  <!-- Table 211( -->
 							<table width='100%'>
 								<!-- CONTENT -->
 								<tr>
 									<td>
+									  <!-- Table 2111( -->
 										<table width="100%">
 											<tr>
-												<td class="right">
+												<td class="center" colspan="2">
 													<span class="subtitle2"><?php echo $user->username; ?>&nbsp;&nbsp;&nbsp;</span>(<a href="edit_profile.php">Edit Profile</a>)
 												</td>
-												<td class="left">
+										</tr>
+										
+										
+										<?php if($user->instructor == 1) { ?>
+										<tr>
+												<td class="center" colspan = "2">
 													<?php
 													if ($user->instructor == '1') {
-														$instructor = new instructor(tep_get_username($_GET['id']));
+														$instructor = new instructor($user->username);
 														$instructor->instructor_attributes();
-														?><img src="<?php echo RELATIVE_UPLOAD_DIR."/".$instructor->photo;?>" height="90" width="70"><?php
+														?><img src="<?php echo "uploads/".$instructor->picture;?>" width="200"><?php
 													}
 													else
 														echo '&nbsp';
 													?>
 												</td>
 											</tr>
+										<?php } ?>
+											
 										</table>
+										<!-- Table 2111) -->
 									</td>
 								</tr>
 								<tr>
@@ -113,11 +135,12 @@
 								</tr>
 								<tr>
 									<td align="left">
-										<h4>Contact Details:</h4>
+										<h4>Personal Information:</h4>
 									</td>
 								</tr>
 								<tr>
 									<td>
+									  <!-- Table 2112( -->
 										<table width="100%">
 											<tr>
 												<td width="30%" class="left">
@@ -137,6 +160,22 @@
 												</td>
 											</tr>
 											
+											<?php if ($user->instructor==1) { ?>
+											
+											<tr>
+												<td width="30%" class="left">
+													Biography:
+												</td>
+												<td class="right">
+													<?php echo htmlspecialchars ($user->bio); ?>
+												</td>
+											</tr>
+											
+											<?php }?>
+											
+											
+											<?php if ($user->instructor==0) { ?>
+											
 											<tr>
 												<td width="30%" class="left">
 													Country:
@@ -149,7 +188,7 @@
 																					
 											<tr>
 												<td width="30%" class="left">
-													Original Name:
+													Name of Certificate:
 												</td>
 												<td class="right">
 													<?php echo $user->fullname; ?>
@@ -161,7 +200,8 @@
 													Net ID:
 												</td>
 												<td class="right">
-													<?php echo $user->netid; ?>
+													<a href = "https://oit.utk.edu/help/areyounew/Pages/netidpassword.aspx" target="_blank">
+													    <?php echo $user->netid; ?></a>
 												</td>
 											</tr>
 											
@@ -174,16 +214,26 @@
 												</td>
 											</tr>
 											
-											<td width="30%" class="left">
-													Project:
+												<tr>
+												<td width="30%" class="left">
+													Primary Insurance Carrier:
 												</td>
 												<td class="right">
-													<?php echo tep_get_project_name($user->id); ?>
+													<?php echo $user->insurance; ?>
 												</td>
 											</tr>
 											
+												<tr>
+												<td width="30%" class="left">
+													Insurance Policy Number:
+												</td>
+												<td class="right">
+													<?php echo $user->insurance_no; ?>
+												</td>
+											</tr>
 											
-											
+										<?php }
+										?>
 											<tr>
 												<td class="left">
 													Mobile Phone:
@@ -192,6 +242,47 @@
 													<?php echo $user->mobile; ?>
 												</td>
 											</tr>
+											
+											<?php 
+											if ($user->instructor == 0) {
+											?>
+											
+											<tr>
+												<td class="left">
+													Facebook:
+												</td>
+												<td class="right">
+													<?php echo $user->facebook; ?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="left">
+													Twitter:
+												</td>
+												<td class="right">
+													<?php echo $user->twitter; ?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="left">
+													Whatsapp:
+												</td>
+												<td class="right">
+													<?php echo $user->whatsapp; ?>
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="left">
+													Google Hangout:
+												</td>
+												<td class="right">
+													<?php echo $user->google; ?>
+												</td>
+											</tr>
+											
 											
 											<tr>
 												<td class="left">
@@ -202,24 +293,233 @@
 												</td>
 											</tr>
 											
+											
+												<tr>
+												<td class="left">
+													Semesters Completed:
+												</td>
+												<td class="right">
+												    <?php 
+												    if ($user->semester <= 12) {
+												        echo $user->semester;
+												    } else if ($user->semester == 13)  {
+												        echo ">12";
+												    } else if ($user->semester == 14) {
+												        echo "Graduated";
+												    }
+												    
+												    ?>
+												</td>
+											</tr>
+											
+											
+												<tr>
+												<td class="left">
+													Background Knowledge:
+												</td>
+												<td class="right">
+												    <?php 
+												    $back_array = explode(".", $user->background);
+												    foreach (array_slice($back_array, 0, count($back_array) - 1) as $item)
+												    {
+												        echo tep_get_name(TABLE_BACKGROUND, $item).";";
+												    }
+												  ?>
+												    
+												    
+												</td>
+											</tr>
+											
+										</table>
+										<!-- Table 2112) -->
+									</td>
+								</tr>
+							
+							
+									<tr>
+									<td align="left">
+										<h4>Flight itinerary Information:</h4>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<table width="100%">
+											<tr>
+												<td width="30%" class="left">
+													Departure Date:
+												</td>
+												<td class="right">
+        									<?php 		echo $user->dep_date; ?>
+												</td>
+											</tr>
+											
+											  <tr>
+            					    <td align="right" class="left">
+            					    	Departure Time:
+            					    </td>
+            					    <td>
+            					        <?php  echo $user->dep_time; ?>
+            					    	</td>
+            					  </tr>
+            					  
+            					    <tr>
+            					    <td align="right" class="left">
+            					    	Flight No. (Use comma to separate multiple flights):
+            					    </td>
+            					    <td>
+            					   <?php echo $user->flight;?>
+            					    	</td>
+            					  </tr>
+            					  
+            					   <tr>
+            					    <td align="right" class="left">
+            					    	Itinerary screenshot:
+            					    </td>
+            					    <td class="right">
+            					            <?php if ($user->ticket == "") 
+            					    	        {
+            					    	            echo "You haven't upload any itinerary screenshot." .
+            					    	            "<br>Please upload one by  <a href=\"edit_profile.php\">Edit</a>".
+            					    	            " your profile";
+            					    	        } 
+            					    	        else if (check_picture_extension($user->ticket) == false) {
+            					    	            echo "<a href=\"iternerary/$user->ticket\">$user->ticket</a>";
+            					    	        }
+            					    	        else {
+            					    	            echo 	"<img src=\"iternerary/$user->ticket\"  width=\"500\">";
+            					    	        }?>
+            					  </tr>
+					  
+																
 										</table>
 									</td>
 								</tr>
 							
+							
+								<tr>
+									<td align="left">
+										<h4>Project Information:</h4>
+									</td>
+								</tr>
+								
+								<?php if ($user->team != 0) { ?>
+								
+									<tr>
+									<td colspan="3">
+									    <!-- Table 2114( -->
+										<table width="100%">
+										    <?php $proj_array = tep_get_team_leader($user->id);?>
+										    
+								        <tr>
+        										<td width="50%" class="left">
+        													Project:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['title']; ?>
+        												</td>
+        							 </tr>	
+        							 
+        							  <tr>
+        										<td width="50%" class="left">
+        													Company:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['CompanyName']; ?>
+        												</td>
+        							 </tr>	
+        							 
+        							  <tr>
+        										<td width="50%" class="left">
+        													Project Description:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['ProjDesc']; ?>
+        												</td>
+        							    </tr>	
+        							 
+        							 
+        							 	  <tr>
+        										<td width="50%" class="left">
+        													Additional Comments:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['comments']; ?>
+        												</td>
+        							    </tr>	
+        							 
+        							 
+        							 
+        							    <tr>
+        										<td width="50%" class="left">
+        													Team Leader:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['firstname']." ".$proj_array['lastname']; ?>
+        												</td>
+        							    </tr>	
+        							    
+        							     <tr>
+        										<td width="50%" class="left">
+        													Telephone:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['mobile']; ?>
+        												</td>
+        							    </tr>	
+        							    
+        							         <tr>
+        										<td width="50%" class="left">
+        													Email:
+        												</td>
+        												<td class="right">
+        													<?php echo $proj_array['email']; ?>
+        												</td>
+        							    </tr>	
+        							    
+        							     <tr>
+        									
+        												<td  class="left">
+        													<img src="<?php echo "uploads/".$proj_array['picture'];?>" width="200">
+        												</td>
+        												<td  class="right">
+        													<?php echo $proj_array['bio']; ?>
+        												</td>
+        							    </tr>	
+                            
+                            <tr>
+            										<td width="50%" class="left">
+            													Teammates:
+            												</td>
+        												<td class="right">
+        													<?php 
+        													    $mates_array = tep_get_teammates($user->id, $user->team);        													
+        													    foreach ($mates_array as $mate) {
+        													        echo $mate['firstname']." ".$mate['lastname'].
+        													        ", ".$mate['mobile'].
+        													        ", <a href=\"mailto:".$mate['email']."\">".$mate['email']."</a>".
+        													        "<br>";  
+        													    }
+        													    
+        													 ?>
+        												</td>
+        							    </tr>							    
+       							 
+        							 				
+        							  </table>
+        						</td>
+        				</tr>
+							
+							  <?php }?>
+							
 								<!-- The schedule of this user -->
 								<tr>
-									<td>
-										<table width="100%">
-											<tr>
-												<td class="hright">
-													Course Schedule
-												</td>
-											</tr>
-										</table>
+									<td align="left">
+										<h4>Course Schedule:</h4>
 									</td>
 								</tr>
 								<tr>
 									<td colspan="3">
+									    <!-- Table 2114( -->
 										<table width="100%">
 											<tr>
 												<td class="hright">
@@ -295,7 +595,7 @@
 													<?php
 												}
 											//}
-											if ($courses_error) { ?>
+											if ($user->instructor == 0 && $courses_error) { ?>
 												<tr>
 													<td colspan="6" class="right">
 														<font color="red">You do not yet have any courses. Use the menu to view the schedule and select courses to register for.</font>
@@ -305,84 +605,126 @@
 											}
 											?>
 										</table>
-										<!-- if user is an instructor list courses they are to instruct on here -->
-										<?php
-										if ($user->instructor==1) {
-										?>
-
-
-
+										<!-- Table 2114) -->
+								</td>
+						</tr>
+						<?php  } else   { 
+						        // for team leaders
+						    ?>    
+						            
+                       <!-- Table 2115( -->
 											<table width="100%">
 												<tr>
-													<td colspan="5" class="hright">Instructor Schedule</td>
+													<td colspan="5"><h4>Team Information:</h4></td>
 												</tr>
-												<tr>
-													<td class="hright">Course ID</td>
-													<td class="hright">Dates</td>
-													<td class="hright">Course</td>
-													<td class="hright">Other Instructors</td>
-													<td class="hright">Cancelled</td>
-												</tr>
-												<?php
-												//add courses instructor instructs on in here
-												$instructor->get_instructor_courses();
-
-												foreach ($instructor->courses as $a=>$b) {
-
-													$scheduled = new scheduled(tep_get_course_id($b['id']));
-													$scheduled->set_calendar_vars($b['id']);
-													if ($scheduled->cancelled) {
-														$class='h3right';
-													}
-													else
-													{
-														$class='right';
-													}
-													$dates = unserialize($b['dates']);
-													?>
-													<tr>
-														<td class="<?php echo $class; ?>"><?php echo $b['id']; ?></td>
-														<td class="<?php echo $class; ?>">
-														<?php
-															foreach ($dates as $c=>$d) {
-																echo tep_swap_dates($d).'<br>';
-															}
-														?>
-														</td>
-														<td class="<?php echo $class; ?>"><a href="course_registrations.php?id=<?php echo $b['id']; ?>"><?php echo tep_get_course_name(tep_get_course_id($b['id'])); ?></a></td>
-														<td class="<?php echo $class; ?>"><?php
-															// TODO: Add instructor list here
-														?>
-														</td>
-														<td class=<?php echo $class; ?>>
-																<?php echo $scheduled->cancelled; ?>
-														</td>
-
-													</tr>
-													<?php
-												}
-												?>
+												
+						
+											    <?php
+											    $query = "select * from tbl_projects where 1 and teamleader = ".$user->team;
+											    $result = tep_db_query($query);
+											    
+                        	if (tep_db_num_rows($result) > 0) {
+                        		while ($row = tep_db_fetch_array($result)) {
+                        		 ?>
+                        		 <tr><td colspan="2">
+                        		    
+                        		 <!-- Table 21151( -->
+                        		 <table width="100%">
+                        		    <tr>
+                        		    <td class="center" width="50%"><strong>Project Name:</strong></td>    
+                        		    <td class="center" width="50%"><?php echo $row['Title'];?></td>    
+                        		    </tr>
+                        		    
+                        		    <tr>
+                        		    <td class="center" width="50%"><strong>Company Name:</strong></td>    
+                        		    <td class = "center" width="50%"><?php echo tep_get_name_pro(TABLE_COMPANIES, 'ComIndex', 'CompanyName', $row['ComIndex']);?></td>   
+                        		    </tr>
+                        		    
+                        		    <tr>
+                        		    <td colspan="2" class="center"><strong>Team Members</strong></td>    
+                        		    </tr>
+                        		    
+                        		    
+                        		     <tr>
+                        		        <!-- Table 211511( -->
+                       		          <table width="100%">
+                       		                
+                       		                
+                        		    <?php 
+                        		    $query2 = "select email ".
+                        		              "From tbl_students ".
+                        		              "Where 1 and team=".$row['ProjIndex'];
+                        		    $result2 = tep_db_query($query2);
+                        		    if (tep_db_num_rows($result2) > 0) {
+                            		while ($row2 = tep_db_fetch_array($result2)) {
+                            		    $student = new user($row2['email']);
+                            		    $student->set_profile();
+                            		    ?>
+                        		    
+                        		   
+                       		            <tr>
+                       		                <td class="center"><?php echo $student->firstname." ".$student->lastname.
+                       		                    ' <strong>('.$student->fullname.')</strong>';?></td>
+                       		                <td class="center"><a href="mailto:<?php echo $student->email."\">".$student->email;?></a></td>
+                       		                <td class="center"><?php echo $student->gender == "F" ? "Female":"Male";?></td>
+                       		                <td class="center"><?php echo tep_get_name(TABLE_COUNTRIES,$student->country); 
+                       		                    if ($student->swb == 1) {echo "(SWB)";}?></td>
+                       		            </tr>                       		                
+                       		           
+                        		    
+                        		    <?php 
+                        		}
+                        }?>
+                        
+                                </table>
+                       		       <!-- Table 211511) -->
+                        		    </tr>
+                        		    
+                        		    <tr>
+                        		    <td colspan="2"><hr></td>
+                        		    </tr>
+                        		    
+                        		 </table>   
+                        		 <!-- Table 21151) -->
+                        		    </td>
+                        		</tr>
+                        		    
+                        		   
+                        <?php 
+                        		}
+                          }
+										    
+											    ?>
+											
+																						
 
 											</table>
+											<!-- Table 2115) -->
 										<?php
 										}
 										?>
 									</td>
 								</tr>
 							</table>
+							<!-- Table 211) -->
 						</td>
 					</tr>
 				</table>
+				<!-- Table 21) -->
 				<br><br>
+				
+				<!-- Table 22( -->
 				<table width="96%" align="center" cellspacing="0" cellpadding="2" border="0">
 					<tr>
 						<td colspan=3 align=right></td>
 					</tr>
 				</table>
+				<!-- Table 22) -->
 				<br><br>
 			</td>
 		</tr>
 	</TABLE>
+	<!-- Table 2) -->
 <?php
 	include(INCLUDES . 'rightmenu.php');
 	include(INCLUDES . 'footer.php');

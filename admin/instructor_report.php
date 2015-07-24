@@ -675,16 +675,16 @@
 
 			// end of where clause build
 
-			// query users/profiles for instructors with filtered criteria
+			// query users/tbl_students for instructors with filtered criteria
 			if ($where_clause != '') {
 				$query = "SELECT " .
 						"u.username " .
-						"FROM users as u LEFT JOIN profiles as p on (u.id = p.user_id) " .
+						"FROM users as u LEFT JOIN tbl_students as p on (u.id = p.user_id) " .
 						"WHERE ".$where_clause." and u.instructor = 1 ORDER BY p.lastname";
 			}
 			else
 			{
-				$query = "SELECT u.username FROM users as u LEFT JOIN profiles as p on (u.id = p.user_id) WHERE u.instructor = 1 ORDER BY p.lastname";
+				$query = "SELECT u.username FROM users as u LEFT JOIN tbl_students as p on (u.id = p.user_id) WHERE u.instructor = 1 ORDER BY p.lastname";
 			}
 			$result = tep_db_query($query);
 			$instructor_array = array();

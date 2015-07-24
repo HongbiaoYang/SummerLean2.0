@@ -12,7 +12,13 @@
 		header("Location: login.php");
 	}
 	$user = $_SESSION['learner'];
-	$user->set_profile();
+	
+	if ($user->instructor == 1) {
+	    $user = new instructor($user->username);
+	} else {
+	    $user->set_profile();
+  }
+	
 	include(INCLUDES . 'header.php');
 	include(INCLUDES . 'front_header.php');
 
@@ -214,7 +220,7 @@
 										if ($user->instructor==1) {
 										?>
 
-
+                        <!--
 
 											<table width="100%">
 												<tr>
@@ -268,6 +274,7 @@
 												?>
 
 											</table>
+											-->
 										<?php
 										}
 										?>

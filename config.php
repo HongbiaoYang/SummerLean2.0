@@ -30,7 +30,7 @@ date_default_timezone_set('America/New_York');
 	//Email settings
 
 	define('FROM', 'utlean@utk.edu');
-	define('SIGNATURE', 'CourseMS Support Team');
+	define('SIGNATURE', 'Lean Summer Program Support Team');
 	define('RANDOM_STRING', 'bob');
 	// Site Configuration Settings
 

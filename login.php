@@ -63,7 +63,7 @@
 					<?php
 					if ($error) {	?>
 						<tr>
-							<td colspan="2" class="error"><?phpEcho $error; ?></td>
+							<td colspan="2" class="error"><?php echo $error; ?></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
@@ -88,13 +88,17 @@
 					</tr>
 					<tr>		
 						<td colspan="2"><center>
-							<a class="frontlink" href="choose_type.php">Register</a>&nbsp;
+							<!-- <a class="frontlink" href="choose_type.php">Register</a>&nbsp; -->
+							
 							<a href="forgotten_password.php" class="frontlink">Forgotten Password</a>&nbsp;
 			        </td>
 						</tr>
 						<tr><td colspan="3" class="error">
-						    If you are new to this site, please click 'Register' to create a new account!
-						    </td></tr>
+						    <!--If you are new to this site, please click 'Register' to create a new account!
+				        <br/>Please DO NOT register multiple accounts!
+				        -->
+				        Register is currently closed for this site. Contact utlean@utk.edu for more details.
+				    </td></tr>
 						
 					</TABLE>
 

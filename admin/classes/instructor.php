@@ -33,7 +33,7 @@
  	}
 
  	function instructor_attributes() {
- 		$query = "select qualifications, photo from profiles where user_id='$this->id' LIMIT 1";
+ 		$query = "select qualifications, photo from tbl_students where user_id='$this->id' LIMIT 1";
  		$result = tep_db_query($query);
  		$row = tep_db_fetch_array($result);
  		$this->photo = $row['photo'];

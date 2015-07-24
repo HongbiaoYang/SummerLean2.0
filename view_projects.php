@@ -14,6 +14,9 @@
 		header("Location: login.php");
 	}
 	$user = $_SESSION['learner'];
+	$user->set_profile();
+	$user->set_choices();
+	
 	// template for page build
 	include(INCLUDES . 'header.php');
 	include(INCLUDES . 'front_header.php');
@@ -22,23 +25,32 @@
 
 	if (isset($_POST['register'])) {
 
+
+	//validate and record
+		$errors = tep_validate_projects();
+   
+    if ($errors[0] == false) {
+    
+
 		$sql_array = array(
-        		           "choice1" => $_POST['choice0'],
-        						   "choice2" => $_POST['choice1'],
-        						   "choice3" => $_POST['choice2'],
-        						   "choice4" => $_POST['choice3']);
-    $sql_values = array_values($sql_array);
-        						   
-    if (count($sql_values) != count(array_unique($sql_values))) {
-        // print_r($sql_values);
-        echo ' <span class="required">
-                You have chosen duplicated projects!
-               </span>';
+        		           "choice1" => $_POST['choice1'],
+        						   "choice2" => $_POST['choice2'],
+        						   "choice3" => $_POST['choice3'],
+        						   "choice4" => $_POST['choice4'],
+        						   "choice5" => $_POST['choice5'],
+        						   "trip1" => $_POST['trip1'],
+        						   "trip2" => $_POST['trip2'], 
+        						   "weekend1" => $_POST['weekend1'], 
+        						   "weekend2" => $_POST['weekend2'] );
+	  
+        tep_db_perform(TABLE_CHOICES, $sql_array, 'update', 'stuindex ='.$user->id);	
+
+        $user->set_choices();
+        
     } else {
-    						  
-        tep_db_perform(TABLE_STUDENTS, $sql_array, 'update', 'stuindex ='.$user->id);	
-        $user->set_profile();
+        echo "<span class=\"required\">".$errors[1]."</span>";
     }
+    
 	}
 	
 	//filter to show courses only valid for this users job title
@@ -87,83 +99,201 @@
 									</table>
 								</tr>
             
-                <tr>
-									<td align="left">
-										<h4>Projects</h4>
-									</td>
-								</tr>
+               
 								
+								<!--
 								<tr><td align="center" ><font color="red" size="6">Projects will be available later</font></td></tr>
-							<!--
+							-->
 							
 								<tr>
 									<td>
 									<?php
 									
+									if ($user->instructor == 1) {
+									   ?>									    
+									    		 <tr><td align="right" class="left"><Strong>Ripley's Aquarium Trip</Strong></td><td class="right" align="left">
+									    		    <strong> 9:30 AM </strong>@Laurel downstairs</td></tr>
+											     
+											     <tr><td align="right" class="left"><Strong>Tanger Outlet Trip</Strong></td><td class="right" align="left">
+											  <strong> 8:30 AM </strong> boarding, <strong> 9:00 AM </strong> departure @Laurel downstairs </td></tr>
+								  <?php
+								  }
+								  
+									if ($user->instructor == 0) {
+									
 									if ($user->choice1 == 0) {
 									?>  
-									    <form enctype="multipart/form-data" name="register" action="all_courses.php" method="POST">
+									    <form enctype="multipart/form-data" name="register" action="view_projects.php" method="POST">
 									    <table width="100%" align="center">
+									     <tr>
+    									<td align="left">
+    										<h4>Projects</h4>
+    									</td>
+    								</tr>
+    								
+    								  <tr>
+        									<td align="left" colspan="2"><h5>
+    								Please select the top 5 choices you have for affinity of projects. Remember that there is no guarantee or warranty that you will end up working in these projects. If you are part of the healthcare certificate program at ITESM (Mexico), please include in your first four choices only hospital projects, and put as your fifth choice the project that appears first on the list.</h5>
+									        </td>
+        								</tr>
+									        
+									        
 									    <?php
-									    for ($i=0; $i < 4; $i++) {
+									    for ($i=1; $i <= 5; $i++) {
 									    ?>
-									    <tr><td align="right" class="left">
-									        Choice<?php echo ($i+1); ?></td><td class="right" align="left">
+									    <tr><td class="left" width="30%">
+									        Choice<?php echo ($i); ?></td><td class="right" align="left">
 									       <?php
-									       echo tep_build_project_dropdown(TABLE_PROJECTS, 'choice'.$i, false, '1', '', false, '', 'ProjIndex', 'Title', '--Select--'); ?>									    
+									       echo tep_build_project_dropdown('choice'.$i, true, $_POST['choice'.$i], '--Select--'); ?>	<span class="required">*</span>								    
 									    </td></tr>
 									    <?php
 									        }    		
 									        ?>
-									        <tr>
+               				  
+                				  <tr><td colspan=2><hr></td> </tr>
+                				  
+                				  
+                				  <tr>
+        										<td align="left" colspan="2">
+        										<h4>Facility Trips</h4>
+        									</td>
+        								</tr>
+        								
+        									  
+                				  <tr>
+        									<td align="left" colspan="2">
+        										<h5>Please select only 2 facility tours. Only one tour per scheduled date is allowed.</h5>
+        									</td>
+        								</tr>
+        							        
+        							    <tr>
+                							<td align="right" class="left">
+                								Field Trip Choice 1:
+                							</td>
+                							<td class="right">
+                								<!-- pulldown menu of vegitarian, halal, kosher --> 	
+                								<?php echo tep_build_trip_dropdown(TABLE_TRIPTYPE, 'trip1', false, '1', ' date = 9', true, $_POST['trip1']);?>
+                								&nbsp;<span class="required">*</span>
+                							</td>
+                						</tr>	
+                						
+                						  <tr>
+                							<td align="right" class="left">
+                								Field Trip Choice 2:
+                							</td>
+                							<td class="right">
+                								<!-- pulldown menu of vegitarian, halal, kosher --> 	
+                								<?php echo tep_build_trip_dropdown(TABLE_TRIPTYPE, 'trip2', false, '1', 'date = 10 or date = 23', true, $_POST['trip2']);?>
+                								&nbsp;<span class="required">*</span>
+                							</td>
+                						</tr>	
+                						
+                						  <tr>
+        									<td align="left">
+        										<h4>Weekend Trips</h4>
+        									</td>
+        								</tr>
+        								 <tr>
+        									<td align="left" colspan="2">
+        										<h5>Please select the weekend trips you will be attending. These trips are included as part of your program at no additional cost. However, once your selection is made, there are no changes or cancelations. Failure to attend signed up trips will incur a $30 USD penalty fee.</h5>
+        									</td>
+        								</tr>
+                						
+                						
+                						 <tr>
+                							<td align="right" class="left">
+                								Ripley's Aquarium trip (July 18th):
+                							</td>
+                							<td class="right">
+                							    <input type="checkbox" name="weekend1" value="1"
+                							    <?php if ($_POST['weekend1'] == 1) echo "checked";?>>
+                							</td>
+                						</tr>	
+                						
+                						<tr>
+                							<td align="right" class="left">
+                								Tanger Outlet trip (July 25th):
+                							</td>
+                							<td class="right">
+                							    <input type="checkbox" name="weekend2" value ="1" 
+                							    <?php if ($_POST['weekend2'] == 1) echo "checked";?>>
+                							</td>
+                						</tr>	
+        							
+        								  
+                				    <tr>
                 					<td colspan="2" align="center">
                 						<input name="register" type="submit" value="Register" class="submit3">
                 					</td>
                 				  </tr>
+                				  
 									        </table>
 									        </form>
 									        
 									        <?php							    								    
 									     } 
 											 else {
-											   echo "You already chosen your projects."; 											    
+		    
 											   ?>
+											   <!--
 											   <table width="100%" align="center">
 											    <tr><td align="right" class="left"><Strong>Choice1</Strong></td><td class="right" align="left"><?php echo $user->choice1.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice1);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice2</Strong></td><td class="right" align="left"><?php echo $user->choice2.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice2);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice3</Strong></td><td class="right" align="left"><?php echo $user->choice3.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice3);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice4</Strong></td><td class="right" align="left"><?php echo $user->choice4.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice4);?></td></tr>
-		                    <?php } ?>
-		
+											    <tr><td align="right" class="left"><Strong>Choice5</Strong></td><td class="right" align="left"><?php echo $user->choice5.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice5);?></td></tr>
+											    -->
+											    
+											     <tr><td align="right" class="left"><Strong>Your Project</Strong></td><td class="right" align="left"><?php echo tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->team);?></td></tr>
+											     
+											     <tr><td align="right" class="left"><Strong>Trip 1</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip1);?></td></tr>											     
+											     <tr><td align="right" class="left"><Strong>Trip 2</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip2);?></td></tr>
+											     
+											     <tr><td align="right" class="left"><Strong>Ripley's Aquarium Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend1 == 0?"Not Going":"Going,<strong> 9:30 AM </strong>@Laurel downstairs";?></td></tr>
+											     
+											     <tr><td align="right" class="left"><Strong>Tanger Outlet Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend2 == 0?"Not Going":"Going,<strong> 8:30 AM </strong> boarding, <strong> 9:00 AM </strong> departure @Laurel downstairs  ";?>&nbsp; <!-- <a href="edit_trip.php">Modify</a> -->
+											      </td></tr>
+											     
+											     
+											     
+		                    <?php } ?>		
 								</tr>
 							
 							</table>
 
 						</td>
 					</tr>
+					
+					
+					
+					
 				</table>
 				<hr>
 				
 				<?php  
-				if ($user->team != 0) {
+				if ($user->team != 0 && $user->choice1 != 0) {
 				$leader = tep_get_leader($user->team);
 				
 				?>
 				<table>
 				    <tr><td width="25%"><td align="right" class="left"><Strong>Team Leader:</Strong></td><td class="right" align="left"><?php echo $leader['FirstName']; ?></td><td width="25%"></tr>
 				    <tr><td width="25%"><td align="right" class="left"><Strong>Email:</Strong></td><td class="right" align="left"><?php echo $leader['Email']; ?></td><td width="25%"></tr>
-            <tr><td width="25%"><td align="right" class="left" width="25%"><Strong>Biography:</Strong></td><td class="right" align="left" width="25%"><?php echo $leader['Biography']; ?></td><td width="25%"></td></tr>
+            <tr><td width="25%"><td align="right" class="left" width="25%"><Strong>Biography:</Strong></td><td class="right" align="left" width="25%"><?php echo $leader['bio']; ?></td><td width="25%"></td></tr>
             <tr><td width="25%"><td align="right" class="left"><Strong>Profile:</Strong></td><td class="right" align="left">
-                <img src="images/teamleader/<?php echo $leader['Pic']; ?>" class="left" height="240"/>
+                <img src="uploads/<?php echo $leader['picture']; ?>" class="left" height="240"/>
             </td><td width="25%"></tr>
+                
+                
 			  </table>
 				<?php }
 				
+				
+		}
 				?>
 				
 				
 			</td>
-		</tr> -->
+		</tr> 
 	</TABLE>
 <?php
 	include(INCLUDES . 'rightmenu.php');

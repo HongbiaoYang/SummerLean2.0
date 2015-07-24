@@ -316,6 +316,18 @@ h4 {
 	font-family: arial;
 }
 
+.button3 {
+	background-color: #D2D2D2;
+	border-color: #FFFFFF;
+	border-style: beveled;
+	border-width: 1;
+	color: 606060;
+	font-size: 16pt;
+	font-weight: bold;
+	font-family: arial;
+}
+
+
 .slim_button {
 	background-color: #D2D2D2;
 	border-color: #FFFFFF;

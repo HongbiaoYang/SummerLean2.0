@@ -25,7 +25,7 @@
 	 		}
 	 	}
 	 	// get the members of this group
-	 	$query = "SELECT gu.id, gu.user_id FROM group_users as gu left join profiles as p on (gu.user_id = p.user_id) WHERE gu.group_id = '$id' ORDER BY p.lastname";
+	 	$query = "SELECT gu.id, gu.user_id FROM group_users as gu left join tbl_students as p on (gu.user_id = p.user_id) WHERE gu.group_id = '$id' ORDER BY p.lastname";
 	 	$result = tep_db_query($query);
 	 	if (tep_db_num_rows($result) > 0) {
 	 		while ($row = tep_db_fetch_array($result)) {

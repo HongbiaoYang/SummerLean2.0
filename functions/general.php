@@ -69,46 +69,22 @@ function tep_build_dropdown($tablename, $menu_name, $multiple = false, $size = '
 }
 
 
-function tep_build_project_dropdown($tablename, $menu_name, $multiple = false, $size = '1', $where_clause = '', $selected = false, $selected_id = '', $fieldkey = 'id', $fieldname='name', $default_option_name = '--Select--') {
-    // table needs to be in format id - name
-	if (strlen($where_clause) > 0) {
-		$query = "select * from $tablename where ".$where_clause." order by ".$fieldname;
-	}
-	else
-	{
-		$query = "select * from $tablename";
-	}
+function tep_build_project_dropdown($menu_name, $selected = false, $selected_id = '', $default_option_name = '--Select--') {
+    
+	$query = "SELECT p.projindex, c.companyname, p.title FROM `tbl_projects` p 
+	          Left join tbl_companies c on p.comindex = c.comindex WHERE 1";
+
 	$result = tep_db_query($query);
 	if (tep_db_num_rows($result) > 0) {
-		if ($multiple) {
-			$menu = '<select name="'.$menu_name.'[]" class="textbox1" multiple="multiple" size="'.$size.'">';
-		}
-		else
-		{
-			$menu = '<select name="'.$menu_name.'" class="textbox1"><option value="0">'.$default_option_name.'</option>';
-		}
+	$menu = '<select name="'.$menu_name.'" class="textbox1"><option value="0">'.$default_option_name.'</option>';
+		
 		while ($row = tep_db_fetch_array($result)) {
-			$choice= false;
-			if (is_array($selected_id)) {
-				foreach ($selected_id as $a => $b) {
-					if ($b == $row[$fieldkey]) {
-						$choice = true;
-					}
-				}
-				if ($choice) {
-					$menu .= '<option SELECTED value="'.$row[$fieldkey].'">'.$row[$fieldkey]." - ".$row[$fieldname].'</option>';
-				}
-				else
-				{
-					$menu .= '<option1 value="'.$row[$fieldkey].'">'.$row[$fieldkey]." - ".$row[$fieldname].'</option>';
-				}
-			}
-			else if ($selected && $selected_id == $row[$fieldkey]) {
-				$menu .= '<option SELECTED value="'.$row[$fieldkey].'">'.$row[$fieldkey]." - ".$row[$fieldname].'</option>';
+		  if ($selected && $selected_id == $row["projindex"]) {
+				$menu .= '<option SELECTED value="'.$row["projindex"].'">'.$row["projindex"]." <strong>".$row["companyname"]."11</strong> - ".$row["title"].'</option>';
 			}
 			else
 			{
-				$menu .= '<option value="'.$row[$fieldkey].'">'.$row[$fieldkey]." - ".$row[$fieldname].'</option>';
+				$menu .= '<option value="'.$row["projindex"].'">'.$row["projindex"]." ".$row["companyname"]." - ".$row["title"].'</option>';
 			}
 		}
 		$menu .= '</select>';
@@ -120,6 +96,74 @@ function tep_build_project_dropdown($tablename, $menu_name, $multiple = false, $
 		return $menu;
 	}
 
+}
+
+
+
+function tep_build_trip_dropdown($tablename, $menu_name, $multiple = false, $size = '1', $where_clause = '', $selected = false, $selected_id = '', $fieldkey = 'id', $fieldname='name', $default_option_name = '--Select--') {
+    // table needs to be in format id - name
+	if (strlen($where_clause) > 0) {
+		$query = "select * from $tablename where ".$where_clause." order by ".$fieldkey;
+	}
+	else
+	{
+		$query = "select * from $tablename";
+	}
+	
+
+	$result = tep_db_query($query);
+	if (tep_db_num_rows($result) > 0) {
+		if ($multiple) {
+			$menu = '<select name="'.$menu_name.'[]" class="textbox1" multiple="multiple" size="'.$size.'">';
+		}
+		else
+		{
+			$menu = '<select name="'.$menu_name.'" class="textbox1"><option value="0">'.$default_option_name.'</option>';
+		}
+		while ($row = tep_db_fetch_array($result)) {
+		    
+		  $remaining = $row["capacity"] - tep_get_taken(TABLE_CHOICES, $row[$fieldkey]);
+		    
+			$choice= false;
+			if (is_array($selected_id)) {
+				foreach ($selected_id as $a => $b) {
+					if ($b == $row[$fieldkey]) {
+						$choice = true;
+					}
+				}
+				if ($choice) {
+					$menu .= '<option SELECTED value="'.$row[$fieldkey].'">'.$row[$fieldname]." (remain:".$remaining."/".$row["capacity"].')</option>';
+				}
+				else
+				{
+					$menu .= '<option1 value="'.$row[$fieldkey].'">'.$row[$fieldname]." (remain:".$remaining."/".$row["capacity"].')</option>';
+				}
+			}
+			else if ($selected && $selected_id == $row[$fieldkey]) {
+				$menu .= '<option SELECTED value="'.$row[$fieldkey].'">'.$row[$fieldname]." (remain:".$remaining."/".$row["capacity"].')</option>';
+			}
+			else
+			{
+				$menu .= '<option value="'.$row[$fieldkey].'">'.$row[$fieldname]." (remain:".$remaining."/".$row["capacity"].')</option>';
+			}
+		}
+		$menu .= '</select>';
+		return $menu;
+	}
+	else
+	{
+		$menu = '<input name="'.$menu_name.'" type="text">';
+		return $menu;
+	}
+
+}
+
+function tep_get_taken($table, $id) {
+
+    $query = " SELECT count(*) FROM `tbl_choices` WHERE 1 and trip1 = ".$id." or trip2 = ".$id;
+    $result = tep_db_query($query);
+    $row = tep_db_fetch_array($result);
+    return $row['count(*)'];
 }
 
 
@@ -210,7 +254,7 @@ function tep_build_date_dropdown($menu_name, $type, $year = 0, $month = 0, $day 
 }
 
 function tep_build_instructor_dropdown($menu_name, $id = '') {
-	$query =  "select users.id, profiles.firstname, profiles.lastname from users left join profiles on (users.id = profiles.user_id) where users.instructor = '1'";
+	$query =  "select users.id, tbl_students.firstname, tbl_students.lastname from users left join tbl_students on (users.id = tbl_students.user_id) where users.instructor = '1'";
 	$result = tep_db_query($query);
 	$menu = '<select name="'.$menu_name.'" class="textbox1"><option value="0">--Select--</option>"';
 	while ($row = tep_db_fetch_array($result)) {
@@ -252,7 +296,7 @@ function tep_build_radios($tablename, $menuname, $checked = false, $checked_id =
 
 }
 
-function tep_build_checkbox($tablename, $menuname, $checked = false, $checked_id = 0) {
+function tep_build_checkbox($tablename, $menuname, $checklist) {
 	$query = "select * from $tablename";
 	$result = tep_db_query($query);
 	$radios = '';
@@ -261,6 +305,9 @@ function tep_build_checkbox($tablename, $menuname, $checked = false, $checked_id
 	if (tep_db_num_rows($result) > 0) {
 	    
 	    //$radio .= "<dl><dd>";
+	    
+	    $check_array  = explode(".", $checklist);
+	    
 		while ($row = tep_db_fetch_array($result)) {
         
         
@@ -268,14 +315,16 @@ function tep_build_checkbox($tablename, $menuname, $checked = false, $checked_id
 		    
 		   
 	
-			if ($checked && $checked_id == $row['id']) {
-				$radios .= '<input type="checkbox"  name="'.$menuname.'" value="'.$row['id'].'">'.$row['name'].'&nbsp;&nbsp;&nbsp;';
+			if (in_array($row['id'], $check_array)) {
+				$radios .= '<input type="checkbox" checked name="'.$menuname.'" value="'.$row['id'].'">'.$row['name'].'&nbsp;&nbsp;&nbsp;';
 			}
 			else
 			{
 				$radios .= '<input type="checkbox" name="'.$menuname.'" value="'.$row['id'].'">'.$row['name'].'&nbsp;&nbsp;&nbsp;';
 			}
 		}
+		
+		// $radios.=$check_array[0]."==".$check_array[1]."--";
 		
 		return $radios;
 	}
@@ -311,7 +360,7 @@ function tep_get_description($tablename, $id) {
 function tep_get_leader($id) {
 	$query = "select t.* from tbl_teamleaders t, tbl_students s, tbl_projects p 
 	          where 1 and 
-	          s.team = p.projindex and p.comindex = t.leaderindex and s.team = '$id'";
+	          s.team = p.projindex and p.TeamLeader = t.leaderindex and s.team = '$id'";
 	$result = tep_db_query($query);
 	$row = tep_db_fetch_array($result);
 	return $row;
@@ -363,6 +412,40 @@ function tep_get_project_name($id) {
 	$result = tep_db_query($query);
 	$row = tep_db_fetch_array($result);
 	return $row['Title'];
+}
+
+function tep_get_team_leader($id) {
+	$query = "
+	SELECT t.firstname, t.lastname, t.email, t.bio, 
+	t.picture, t.mobile, p.title, c.CompanyName, p.comments, p.ProjDesc
+	FROM  `tbl_teamleaders` t
+	LEFT JOIN tbl_projects p ON t.leaderIndex = p.teamleader
+	LEFT JOIN tbl_students s ON s.team = p.projindex
+	LEFT JOIN tbl_companies c ON c.comindex = p.comindex
+	WHERE 1 
+        AND s.stuindex =".$id;
+        
+	$result = tep_db_query($query);
+	$row = tep_db_fetch_array($result);
+	return $row;
+}
+
+
+function tep_get_teammates($id, $team) {
+	$query = "
+	SELECT firstname, lastname, email, mobile
+	FROM  `tbl_students` 
+	WHERE 1 
+	AND team = ". $team .
+      " AND stuindex != ".$id;
+        
+	$team_array = array();
+	$result = tep_db_query($query);
+	while (	$row = tep_db_fetch_array($result)) {
+		 array_push($team_array, $row);
+	}
+
+	return $team_array;
 }
 
 

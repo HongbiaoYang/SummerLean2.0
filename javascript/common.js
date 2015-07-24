@@ -41,7 +41,10 @@ var inputs = document.getElementsByTagName("INPUT");
 
  var duration = calc_duration(arrival, departure);
     
-    if (duration > 28) {
+    if (duration < 0) {
+        alert('Departure date need to be later than arrival date!');
+    }
+    else if (duration > 28) {
     
         alert('Your stay (' + duration + ') is longger than 28 days, you need to pay extra for lodge!');
     } else {
@@ -63,9 +66,6 @@ function calc_duration(arrival, departure) {
    var month_d = parseInt(dep[1]);
    var day_a = parseInt(arr[2]);
    var day_d = parseInt(dep[2]);
-  
-  var sum = year_a + year_d + month_a + month_d + day_a + day_d;
-
 
 	var duration;	
 	duration  = (year_d-year_a)*365 + (month_d - month_a)*30 + day_d - day_a;

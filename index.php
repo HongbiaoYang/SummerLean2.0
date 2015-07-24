@@ -28,21 +28,32 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="textbox">	
+	    
+	    
+		<td class="textbox" width="50%">	
 			<span class="frontsubtitle">View Schedules</span><br>
 			From here, you can <a href="view_schedule.php">view the scheduled courses</a>, to see all the courses assigned to you and their available dates. This should be your starting point for enrolling yourself on your assigned courses.
 		</td>
-		<td class="textbox">	
+
+		
+		<!--
+		<td class="textbox" width="50%">	
 			<span class="frontsubtitle">Your Courses</span><br>
 			In the top menubar is the link to <a href="view_my_courses.php">My Courses</a> which will give you a list of all the courses you have been enrolled on, and the outstanding courses you still need to complete. There is a link at the top of this page to print it for your reference.
 		</td>
-	</tr>
-	<tr>
-
-			
+		-->
+		
 		<td class="textbox">
 			<span class="frontsubtitle">My Details</span><br />
 			You can update your details at any time by visiting the	<a href="view_profile.php">My Details</a> page.
+		</td>
+
+    </tr>
+    <tr>
+			
+		<td class="textbox">
+			<span class="frontsubtitle">My Trips</span><br />
+			You can check your trip information at any time by visiting the	<a href="view_projects.php">View Trips</a> page.
 		</td>
 	</tr>
 </table>

@@ -172,7 +172,7 @@ function tep_build_date_dropdown($menu_name, $type, $year = 0, $month = 0, $day 
 }
 
 function tep_build_instructor_dropdown($menu_name, $id = '') {
-	$query =  "select users.id, profiles.firstname, profiles.lastname from users left join profiles on (users.id = profiles.user_id) where users.instructor = '1' order by profiles.firstname";
+	$query =  "select users.id, tbl_students.firstname, tbl_students.lastname from users left join tbl_students on (users.id = tbl_students.user_id) where users.instructor = '1' order by tbl_students.firstname";
 	$result = tep_db_query($query);
 	$menu = '<select name="'.$menu_name.'" class="textbox1"><option value="0">--Select--</option>"';
 	while ($row = tep_db_fetch_array($result)) {

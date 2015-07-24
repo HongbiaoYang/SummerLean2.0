@@ -11,14 +11,17 @@
   define('TABLE_STUDENTS', 'tbl_students');
   define('TABLE_COUNTRIES', 'tbl_countries');
   define('TABLE_PROJECTS', 'tbl_projects');
+  define('TABLE_COMPANIES', 'tbl_companies');
   define('TABLE_TEAMLEADERS', 'tbl_teamleaders');
   define('TABLE_LEVELS', 'tbl_levels');
   define('TABLE_TRIPS', 'tbl_trips');
+  define('TABLE_TRIPTYPE', 'tbl_triptype');
+  define('TABLE_CHOICES', 'tbl_choices');
   define('TABLE_BACKGROUND', 'tbl_background');
 
 
   define('TABLE_USERS', 'users');
-  define('TABLE_PROFILES', 'profiles');
+  define('TABLE_PROFILES', 'tbl_students');
 
   define('TABLE_CENTERS', 'centers');
   define('TABLE_JOBS', 'jobs');

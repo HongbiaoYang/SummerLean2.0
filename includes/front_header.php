@@ -29,9 +29,12 @@
 			<td class='navbar'>
 				<a class='navbar' href="view_profile.php">My Details</a>
 			</td>
+			
+			<!--
 			<td class='navbar'>
 						<A class='navbar' href="view_my_courses.php">My Courses</a>
 			</td>
+			-->
 			
 			<td class='navbar'>
 				<a class='navbar' href="view_schedule.php">View Schedule</a>

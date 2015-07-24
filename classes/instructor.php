@@ -17,15 +17,20 @@
 
  	function instructor($username) {
  		$this->user($username);
- 		$this->set_profile();
+ 		// $this->set_profile();
  	}
 
  	function instructor_attributes() {
- 		$query = "select qualifications, photo from profiles where user_id='$this->id' LIMIT 1";
+ 		$query = "select * from tbl_teamleaders where user_id='$this->id' LIMIT 1";
  		$result = tep_db_query($query);
  		$row = tep_db_fetch_array($result);
- 		$this->photo = $row['photo'];
- 		$this->qualifications = $row['qualifications'];
+ 		$this->picture = $row['picture'];
+ 		$this->bio = $row['bio'];
+ 		$this->firstname = $row['FirstName'];
+ 		$this->lastname = $row['LastName'];
+ 		$this->email = $row['Email'];
+		$this->team = $row['LeaderIndex'];
+		$this->mobile = $row['mobile'];
 
  	}
 

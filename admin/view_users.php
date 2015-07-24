@@ -104,7 +104,7 @@
 									<td class="right" width="40%">
 										<?php echo '<a href="view_profile.php?id='.$u['id'].'">'.$u['username'].'</a>'; ?>
 									</td>
-									<td class="right"><?php echo $user->firstname.' '.$user->lastname; ?></td>
+									<td class="right"><?php echo $user->fullname; ?></td>
 								</tr>
 								<?php
 								}
@@ -227,9 +227,8 @@
 
 									<td class="right"><?php echo '<a href="view_profile.php?id='.$user->id.'">'.$user->username.'</a>'; ?></td>
 									<td class="right"><?php echo $user->lastname.', '.$user->firstname; ?></td>
-									<td class="right">
-										<a href="all_courses.php?user_id=<?php echo $user->id; ?>">Register for a Course</a>
-									</td>
+								  <td class="right"><?php echo $user->fullname; ?></td>
+								  <td class="right"><?php echo tep_get_name(TABLE_COUNTRIES, $user->country); ?></td>
 								</tr>
 								<?php
 								$counter++;

@@ -10,7 +10,7 @@
 
 function tep_get_admin_users($search_term = '') {
 	if (strlen($search_term) > 0) {
-		$query = "select * from users as u left join profiles as p on (u.id = p.user_id) where u.admin='1' and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%' OR p.gmc_reg LIKE '%$search_term%') order by u.center, u.type, u.username";
+		$query = "select * from users as u left join tbl_students as p on (u.id = p.user_id) where u.admin='1' and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%' OR p.gmc_reg LIKE '%$search_term%') order by u.center, u.type, u.username";
 	}
 	else
 	{
@@ -29,7 +29,7 @@ function tep_get_admin_users($search_term = '') {
 
 function tep_get_instructor_users($search_term = '') {
 	if (strlen($search_term) > 0) {
-		$query = "select * from users as u left join profiles p on (u.id = p.user_id) where u.instructor='1' and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term' OR p.lastname LIKE '%$search_term') ORDER by u.center, u.type, u.username";
+		$query = "select * from users as u left join tbl_students p on (u.id = p.user_id) where u.instructor='1' and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term' OR p.lastname LIKE '%$search_term') ORDER by u.center, u.type, u.username";
 	}
 	else
 	{
@@ -44,7 +44,7 @@ function tep_get_instructor_users($search_term = '') {
 
 function tep_get_users($search_term = '') {
 	if (strlen($search_term) > 0) {
-		$query = "select * from users as u left join profiles as p on (u.id = p.user_id) where u.admin='0' and u.instructor='0' and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%') order by username";
+		$query = "select * from users as u left join tbl_students as p on (u.id = p.user_id) where u.admin='0' and u.instructor='0' and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%') order by username";
 	}
 	else
 	{
@@ -98,7 +98,7 @@ function tep_get_instructors() {
 }
 
 function tep_get_instructor_name($id) {
-	$query = "select firstname, lastname from profiles where user_id ='$id' LIMIT 1";
+	$query = "select firstname, lastname from tbl_students where user_id ='$id' LIMIT 1";
 	$result = tep_db_query($query);
 	$row = tep_db_fetch_array($result);
 	return $row['firstname'].' '.$row['lastname'];		//returns id and full name of instructor
@@ -114,7 +114,7 @@ function tep_get_password($username) {
 function tep_set_accessibility($userid,$accessibility) {
 	If ($accessibility=='true') $accessibility=1;
 	Else $accessibility=0;
-	$query ="update profiles set accessibility=$accessibility where user_id=$userid LIMIT 1";
+	$query ="update tbl_students set accessibility=$accessibility where user_id=$userid LIMIT 1";
 	$result = tep_db_query($query);
 }
 
@@ -218,11 +218,42 @@ function do_upload($file_upload, $user_id)
     if (move_uploaded_file($file_upload["tmp_name"], $target_path)) {
         // echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         return $target_file;
-    } 
-    
-    
-    
+    }    
 }
+
+function do_upload_flight($file_upload, $user_file_name)
+{
+    
+    $target_dir = "iternerary/";
+    
+    $ext = pathinfo(basename($file_upload["name"]), PATHINFO_EXTENSION);
+    $target_file =  $user_file_name . "." .$ext;
+    $target_path = $target_dir . $target_file;
+    
+//      if (file_exists($target_path)) {
+ //      $target_file =  $user_file_name . "1." .$ext;
+  //      $target_path = $target_dir . $target_file;
+   // }
+    
+    if (move_uploaded_file($file_upload["tmp_name"], $target_path)) {
+        return $target_file;
+    }    
+}
+
+function check_picture_extension($filename) 
+{
+    $imageFileType = pathinfo($filename, PATHINFO_EXTENSION);
+    if(strcasecmp($imageFileType, "jpg") != 0 && strcasecmp($imageFileType, "png") != 0 && 
+        strcasecmp($imageFileType ,"jpeg") && strcasecmp($imageFileType, "gif") != 0) {
+        return false;
+    } else 
+    {
+        return true;
+    }
+}
+
+
+
 
 function gen_background_value($back_array) {
     
@@ -230,7 +261,8 @@ function gen_background_value($back_array) {
     $backstr = '';
     if(empty($backs))
     {
-    echo("You didn't select any buildings.");
+    
+        return "empty";
     }
     else
     {

@@ -17,8 +17,10 @@
 	    
   	//validate and record
 		$errors = tep_validate_registration_swb();
-    
-    
+		
+		// generate background string
+    $backstr = gen_background_value($_POST['background']);
+        
     // $contact_tel_ab = $_POST['contact_tel_ab1'].$_POST['contact_tel_ab2'];
     
     // echo "<script> alert($FILES['upload']); </script>";
@@ -39,11 +41,11 @@
 				tep_db_perform(TABLE_USERS, $sql_array);
 				$user_id = mysql_insert_id();
 
-        // generate background string
-        $backstr = gen_background_value($_POST['background']);
+        
         $contact_tel_ab = "+" . $_POST['contact_tel_ab1']. "-" .$_POST['contact_tel_ab2'];
 
 				$sql_array = array("stuindex" => $user_id,
+				       "swb" => 1,
 						   "email" => $_POST['email'],
 						   "firstname" => $_POST['firstname'],
 						   "lastname" => $_POST['lastname'],
@@ -718,7 +720,7 @@
 							</td>
 							<td class="right">
 								<!-- checkbox menu of vegitarian, halal, kosher --> 	
-								<?php echo tep_build_checkbox(TABLE_BACKGROUND, 'background[]');?>
+								<?php echo tep_build_checkbox(TABLE_BACKGROUND, 'background[]', $backstr);?>
 								
 							</td>
 						</tr>
@@ -817,7 +819,7 @@
 					  
 					     <tr>
 					    <td align="right" class="left">
-					    	Profile Picture:
+					    	Profile Picture (A picture of you):
 					    </td>
 					    <td class="right">
 					    	<input type="file" name="upload" id="upload" >

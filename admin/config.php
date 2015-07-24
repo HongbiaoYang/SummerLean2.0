@@ -11,9 +11,9 @@ date_default_timezone_set('America/New_York');
 //CourseMS Paths
 
 
- 	define('HTTP_SERVER', 'http://mydesk.desktops.utk.edu/admin/');
-        define('HTTP_PATH', '/var/www/coursems/admin/');
-        define('EXPORT_PATH', '/var/www/coursems/exports/');
+ 	define('HTTP_SERVER', 'http://mydesk.desktops.utk.edu/lean/admin/');
+        define('HTTP_PATH', '/var/www/lean/admin/');
+        define('EXPORT_PATH', '/var/www/lean/exports/');
         define('REL_EXPORT_PATH', 'exports/');
 
 // PHPESP database configuration
