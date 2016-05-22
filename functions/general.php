@@ -61,10 +61,53 @@ function tep_customize_dropdown($tablename, $menu_name, $multiple = false, $size
 
 }
 
+function tep_dropdown_eval($id) {
+    $menu = '<select name="'.$id.'" class="textbox1"><option value=0>-----</option>';
+    
+    for ($i = 1; $i <= 4; $i++) {
+        if ($_POST[$id] == $i) {
+           $menu .= "<option selected value = ".$i ." >".$i."</option>";
+        } else {
+           $menu .= "<option value = ".$i ." >".$i."</option>";
+        }
+    } 
+    /*
+    $menu .= '<option value=1>1</option>';
+    $menu .= '<option value=2>2</option>';
+    $menu .= '<option value=3>3</option>';
+    $menu .= '<option value=4>4</option>';
+    */
+    
+    $menu .= '</select>';
 
-function tep_build_dropdown($tablename, $menu_name, $multiple = false, $size = '1', $where_clause = '', $selected = false, $selected_id = '', $fieldname='name', $default_option_name = '--Select--') {
+    return $menu;
+}
+
+function tep_check_evaluated($id) {
+	$query = "SELECT * FROM tbl_evaluate where 1 and evaluator = ".$id . " and evaluatee = ".$id;
+
+	 $result = tep_db_query($query);
+   $row = tep_db_fetch_array($result);
+
+    if ($row["done"] == 0) {
+      return "<span class = \"fronttitle\">Pending</span>";
+    } else {
+      return "<span class = \"frontsubtitle\">Completed</span>";
+    }
+        
+}
+
+function tep_build_dropdown($tablename, $menu_name, $multiple = false, $size = '1', $where_clause = '', $selected = false, $selected_id = '', 
+														$fieldname='name', $default_option_name = '--Select--') {
 	return tep_customize_dropdown($tablename, $menu_name, $multiple, $size, $where_clause, $selected, $selected_id
 	                    , 'id', $fieldname, $default_option_name);
+	
+}
+
+function tep_build_roommate_dropdown($tablename, $menu_name, $multiple = false, $size = '1', $where_clause = '', $selected = false, $selected_id = '', 
+														$fieldkey, $fieldname='name', $default_option_name = '--Select--') {
+	return tep_customize_dropdown($tablename, $menu_name, $multiple, $size, $where_clause, $selected, $selected_id
+	                    , $fieldkey, $fieldname, $default_option_name);
 	
 }
 
@@ -332,6 +375,14 @@ function tep_build_checkbox($tablename, $menuname, $checklist) {
 	{
 		return 'There are no menu options selected, please add menu items before continueing.';
 	}
+
+}
+
+function tep_evaluatee_name($id) {
+  $query = "select firstname, lastname from tbl_students where stuindex = '$id'";
+	$result = tep_db_query($query);
+	$row = tep_db_fetch_array($result);
+	return $row['firstname'].' '.$row['lastname'];
 
 }
 

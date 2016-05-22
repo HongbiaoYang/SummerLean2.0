@@ -49,6 +49,8 @@
 		</td>
 
     </tr>
+
+    <!--
     <tr>
 			
 		<td class="textbox">
@@ -56,6 +58,7 @@
 			You can check your trip information at any time by visiting the	<a href="view_projects.php">View Trips</a> page.
 		</td>
 	</tr>
+		-->
 </table>
 <!--MAIN TABLE ENDS HERE--->
 

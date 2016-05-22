@@ -106,7 +106,20 @@
 													<span class="subtitle2"><?php echo $user->username; ?>&nbsp;&nbsp;&nbsp;</span>(<a href="edit_profile.php">Edit Profile</a>)
 												</td>
 										</tr>
+										<tr><td colspan="2"><hr></td></tr>
 										
+										<!--	
+											<?php if ($user->instructor ==  0) { ?>
+											<tr>
+												<td class="center" colspan="2" background="green">
+													<span class="fronttitle"><a href="evaluation.php">Self/Peer Evaluation</a></span> 
+													<?php echo tep_check_evaluated($user->id);?>
+												</td>
+										</tr>
+								<?php } ?>
+								-->
+	
+
 										
 										<?php if($user->instructor == 1) { ?>
 										<tr>
@@ -234,6 +247,17 @@
 											
 										<?php }
 										?>
+
+											<tr>
+												<td class="left">
+													IIE ID:
+												</td>
+												<td class="right">
+													<?php echo $user->iieid; ?>
+												</td>
+											</tr>
+
+
 											<tr>
 												<td class="left">
 													Mobile Phone:
@@ -329,13 +353,26 @@
 												    
 												</td>
 											</tr>
-											
+												<tr>
+												<td class="left">
+													Preferred Roommate:
+												</td>
+												<td class="right">
+												    <?php 
+											  echo tep_get_name_pro(TABLE_STUDENTS, 'stuindex', 'fullname', $user->roommate);
+
+												  ?>
+												    
+												    
+												</td>
+											</tr>
+
 										</table>
 										<!-- Table 2112) -->
 									</td>
 								</tr>
 							
-							
+								<!--
 									<tr>
 									<td align="left">
 										<h4>Flight itinerary Information:</h4>
@@ -510,7 +547,7 @@
         				</tr>
 							
 							  <?php }?>
-							
+						
 								<!-- The schedule of this user -->
 								<tr>
 									<td align="left">
@@ -611,7 +648,7 @@
 						<?php  } else   { 
 						        // for team leaders
 						    ?>    
-						            
+						           
                        <!-- Table 2115( -->
 											<table width="100%">
 												<tr>

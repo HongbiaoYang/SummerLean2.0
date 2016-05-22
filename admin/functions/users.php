@@ -48,7 +48,8 @@ function tep_get_instructor_users($search_term = '') {
 
 function tep_get_users($search_term = '') {
 	if (strlen($search_term) > 0) {
-		$query = "select * from users as u left join tbl_students as p on (u.id = p.stuindex) where u.admin='0' and u.instructor='0' and p.rank = 0 and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%') order by p.lastname";
+		$query = "select * from users as u left join tbl_students as p on (u.id = p.stuindex), tbl_evaluatee e where e.evaluatee = p.stuindex and  u.admin='0' and u.instructor='0' and p.rank = 0 and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%') order by e.team";
+	//	$query = "select * from users as u left join tbl_students as p on (u.id = p.stuindex) where u.admin='0' and u.instructor='0' and p.rank = 0 and (u.username LIKE '%$search_term%' OR p.firstname LIKE '%$search_term%' OR p.lastname LIKE '%$search_term%') order by p.lastname";
 	}
 	else
 	{

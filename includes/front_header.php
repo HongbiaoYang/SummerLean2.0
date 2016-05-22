@@ -22,9 +22,11 @@
 				<a class='navbar' href="index.php">Homepage</a>
 			</td>
 			
+			<!--
 			<td class='navbar'>
 				<a class='navbar' href="view_projects.php">My Projects</a>
 			</td>
+			-->
 
 			<td class='navbar'>
 				<a class='navbar' href="view_profile.php">My Details</a>

@@ -228,7 +228,26 @@
 		return $error;
 	}
 	
-	
+	function tep_validate_eval() {
+	  
+	  $error[0] = false;
+	  
+	  foreach ($_SESSION['eval_list'] as $eval_id) {
+	    for ($i = 1; $i <= 6; $i++) {
+          if ($_POST[$eval_id.'-q'.$i] == 0) {
+            $error[0] = true;
+            
+            $missed = tep_evaluatee_name($eval_id);
+            $error[1] .= 'You missed some evaluation questions for <strong>' . $missed . "</strong>";
+          
+            return $error; 
+          }
+      }
+	  }
+	  
+	  return $error;
+	  
+	}
 	
 	
 	

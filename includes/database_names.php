@@ -18,6 +18,7 @@
   define('TABLE_TRIPTYPE', 'tbl_triptype');
   define('TABLE_CHOICES', 'tbl_choices');
   define('TABLE_BACKGROUND', 'tbl_background');
+  define('TABLE_EVALUATE', 'tbl_evaluate');
 
 
   define('TABLE_USERS', 'users');

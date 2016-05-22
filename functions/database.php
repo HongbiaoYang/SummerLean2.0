@@ -103,9 +103,57 @@
       }
       $query = substr($query, 0, -2) . ' where ' . $parameters;
     }
-
+    
+    //return $query;
     return tep_db_query($query, $link);
   }
+
+
+  function tep_db_perform2($table, $data, $action = 'insert', $parameters = '', $link = 'db_link') {
+    reset($data);
+    if ($action == 'insert') {
+      $query = 'insert into ' . $table . ' (';
+      while (list($columns, ) = each($data)) {
+        $query .= $columns . ', ';
+      }
+      $query = substr($query, 0, -2) . ') values (';
+      reset($data);
+      while (list(, $value) = each($data)) {
+        switch ((string)$value) {
+          case 'now()':
+            $query .= 'now(), ';
+            break;
+          case 'null':
+            $query .= 'null, ';
+            break;
+          default:
+            $query .= '\'' . tep_db_input($value) . '\', ';
+            break;
+        }
+      }
+      $query = substr($query, 0, -2) . ')';
+    } elseif ($action == 'update') {
+      $query = 'update ' . $table . ' set ';
+      while (list($columns, $value) = each($data)) {
+        switch ((string)$value) {
+          case 'now()':
+            $query .= $columns . ' = now(), ';
+            break;
+          case 'null':
+            $query .= $columns .= ' = null, ';
+            break;
+          default:
+            $query .= $columns . ' = \'' . tep_db_input($value) . '\', ';
+            break;
+        }
+      }
+      $query = substr($query, 0, -2) . ' where ' . $parameters;
+    }
+    
+    return $query;
+    
+  }
+
 
   function tep_db_fetch_array($db_query) {
     return mysql_fetch_array($db_query, MYSQL_ASSOC);

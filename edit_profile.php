@@ -20,7 +20,7 @@
 	    $user->set_profile();  
 	}
 
-	//include(FUNCTIONS . 'sessions.php');
+	//include(FUNCTIONS . 'sessions.php');  
 	if (isset($_POST['profile'])) {
 		
 		//validate and record
@@ -53,8 +53,10 @@
     				$sql_array = array(
     				   	   "firstname" => $_POST['firstname'],
     						   "lastname" => $_POST['lastname'],
+    						   "email" => $_POST['email'],
     						   "fullname" => $_POST['fullname'],
     						   "mobile" => $_POST['mobile'],
+    						   "iieid" => $_POST['iieid'],
     						   "facebook" => $_POST['facebook'],
     						   "twitter" => $_POST['twitter'],
     						   "whatsapp" => $_POST['whatsapp'],
@@ -64,7 +66,16 @@
     						   "departure" => $_POST['dep_date'],
     						   "dep_time" => $_POST['dep_time'],
     						   "flight" => $_POST['flight'],
+    					//	   "roommate" => $_POST['roommate'], 
     						   "background" => $backstr);
+    
+    			if ($user->roommate == 0) {
+    					$sql_array["roommate"] = $_POST['roommate'];    			
+    			}
+    
+    			// update user table for email
+    			$sql_user = array(
+    							"username" => $_POST['email']);
     
                 $user_file_name = $user->id."-".$user->firstname."_".$user->lastname;
                 
@@ -74,6 +85,8 @@
     
     				// enter user profile details
     				tep_db_perform(TABLE_STUDENTS, $sql_array, 'update', "stuindex='$user->id'");
+    				tep_db_perform(TABLE_USERS, $sql_user, 'update', "id='$user->id'");
+    				
             
             // header("Location: edit_profile.php");
     				header("Location: view_profile.php?id=$user->id");
@@ -97,6 +110,9 @@
 			<td width="3%" rowspan=2><IMG height=45 src="images/line.gif" width=24></td>
 			<td class="title" height="27" colspan=3>&nbsp;Edit Profile</td>
 		</tr>
+		
+
+		
 		<tr>
 			<td colspan="3">&nbsp;</td>
 		</tr>
@@ -187,6 +203,16 @@
 												</td>
 											</tr>
 											
+											<tr>
+												<td class="left">
+													Email:
+												</td>
+												<td class="right">
+													<input class="textbox1" type="text" name="email" value="<?php echo $user->email; ?>">
+													&nbsp;<span class="required">*</span>
+												</td>
+											</tr>
+											
 											<?php if ($user->instructor == 0) { ?>
 											<tr>
 												<td class="left">
@@ -200,7 +226,18 @@
 										<?php }?>
 											
 											
-											
+											<tr>
+												<td class="left">
+													IIE ID:
+												</td>
+												<td class="right">
+													<input class="textbox1" type="text" name="iieid" value="<?php echo $user->iieid; ?>">
+													&nbsp;<span class="required">*</span>
+												</td>
+											</tr>
+
+
+
 											<tr>
 												<td class="left">
 													Mobile phone:
@@ -267,6 +304,43 @@
 										</table>
 									</td>
 								</tr>
+<tr>
+									<td align="left">
+										<h4>Roomate Selection:</h4>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<table width="100%">
+											<tr>
+												<td width="30%" class="left">
+													Preferred Roommate:
+												</td>
+												<td class="right">
+																				<?php 
+																				
+																				
+																				
+																				if ($user->roommate == 0) {
+																				
+																					echo tep_build_roommate_dropdown(TABLE_STUDENTS, 'roommate', false, '1', 'Gender="'.$user->gender.'"' , true, $_POST['roommate'], 'StuIndex','fullName');
+																					} else  {
+																					
+																						echo tep_get_name_pro(TABLE_STUDENTS, 'stuindex', 'fullname', $user->roommate);
+																						
+																						
+																					}
+																				?>
+								
+								&nbsp;<span class="required">*</span>
+												</td>
+											</tr>
+					
+										</table>
+									</td>
+								</tr>
+								
+
 								<tr>
 									<td align="left">
 										<h4>Insurance Information:</h4>
@@ -297,6 +371,9 @@
 										</table>
 									</td>
 								</tr>
+
+
+
 								
 									
 										<tr>
@@ -319,7 +396,7 @@
 										</table>
 									</td>
 								</tr>
-								
+								<!--
 										<tr>
 									<td align="left">
 										<h4>Flight itinerary Information:</h4>
@@ -340,7 +417,6 @@
             								</select> 	
 												</td>
 											</tr>
-											
 											  <tr>
             					    <td align="right" class="left">
             					    	Departure Time:
@@ -400,7 +476,7 @@
 									</td>
 								</tr>
 								<tr>
-    												
+    												-->
 									<td align="center">
 									    
 										<input class="submit3" name="profile" type="submit" value="Change Profile">

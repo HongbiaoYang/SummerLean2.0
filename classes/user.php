@@ -29,6 +29,7 @@ var $hospital_name;
 var $home_telephone;
 var $mobile;
 var $team;
+var $score;
 var $facebook;
 var $twitter;
 var $whatsapp;
@@ -51,6 +52,8 @@ var $diet;
 var $picture;
 var $background;
 var $semester;
+var $roommate;
+var $iieid;
 
 
 function user($username) {
@@ -98,9 +101,11 @@ function set_profile() {
 	$this->netid = $row['netid'];
 	$this->tnid = $row['TNID'];
 	$this->email = $row['Email'];
+	$this->username = $row['Email'];
 	$this->country = $row['country'];
 	$this->swb = $row['swb'];
 	$this->team = $row['Team'];
+	$this->score = $row['score'];
 	$this->insurance = $row['insurance'];
 	$this->insurance_no = $row['insurance_no'];
 	$this->background = $row['background'];
@@ -136,6 +141,8 @@ function set_profile() {
 	$this->diet = $row['diet'];
 	$this->how_hear = $row['how_hear'];
 	$this->accessibility = $row['accessibility'];
+	$this->roommate = $row['roommate'];
+	$this->iieid = $row['iieid'];
 }
 
 function set_choices() {

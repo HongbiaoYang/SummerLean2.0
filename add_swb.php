@@ -12,7 +12,6 @@
 
 	include('includes/application_top.php');
 
-
 	if (isset($_POST['register'])) {
 	    
   	//validate and record

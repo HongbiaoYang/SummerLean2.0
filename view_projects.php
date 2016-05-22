@@ -245,6 +245,9 @@
 											    -->
 											    
 											     <tr><td align="right" class="left"><Strong>Your Project</Strong></td><td class="right" align="left"><?php echo tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->team);?></td></tr>
+											     <tr><td align="right" class="left"><Strong>Your Final Score</Strong></td><td class="right" align="left">
+											        <Strong><?php echo $user->score;?></Strong></td></tr>
+											    
 											     
 											     <tr><td align="right" class="left"><Strong>Trip 1</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip1);?></td></tr>											     
 											     <tr><td align="right" class="left"><Strong>Trip 2</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip2);?></td></tr>
