@@ -20,10 +20,10 @@
         }
         
         
-        if ($_POST['trip1'] * $_POST['trip2'] == 0) {
-            $error[0] = true;
-            $error[1] .= "<br>Please choose your trips!";
-        }
+//        if ($_POST['trip1'] * $_POST['trip2'] == 0) {
+//            $error[0] = true;
+//            $error[1] .= "<br>Please choose your trips!";
+//        }
         
         // if there are empty choices, return now
         if ($error[0] == true)
@@ -38,11 +38,13 @@
             $error[1] .=  "<br>You have chosen duplicated projects!";
         }               
         
-         if ($_POST['trip1'] == $_POST['trip2']) {
-            $error[0] = true;    
-            $error[1] .=  "<br>You have chosen duplicated trips!";
-            return $error;
-        }       
+        return $error;
+        
+//         if ($_POST['trip1'] == $_POST['trip2']) {
+//            $error[0] = true;    
+//            $error[1] .=  "<br>You have chosen duplicated trips!";
+//            return $error;
+//        }       
         
         
         $query = 'select * from tbl_triptype where id= '.$_POST['trip1'];
@@ -199,14 +201,14 @@
 			$error[0] = true;
 			$error[1] .= '<br>* Semester is a required field';
 		}
-		if (strlen($_POST['arrival']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Arrival Date is a required field';
-		}
-		if (strlen($_POST['departure']) == 0) {
-			$error[0] = true;
-			$error[1] .= '<br>* Departure Date is a required field';
-		}     
+//		if (strlen($_POST['arrival']) == 0) {
+//			$error[0] = true;
+//			$error[1] .= '<br>* Arrival Date is a required field';
+//		}
+//		if (strlen($_POST['departure']) == 0) {
+//			$error[0] = true;
+//			$error[1] .= '<br>* Departure Date is a required field';
+//		}     
     
     $arr_date = date_create($_POST['arrival']);
     $dep_date = date_create($_POST['departure']);

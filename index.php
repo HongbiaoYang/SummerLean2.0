@@ -9,6 +9,7 @@
 */
 	include('includes/application_top.php');
 
+
 	if (!isset($_SESSION['learner'])) {
 		header("Location: login.php");
 	}
@@ -25,6 +26,14 @@
 
 	<tr><td colspan="2">
 		<p class="fronttitle">Welcome to your home page</p>
+		<?php 
+		
+		//var_dump($_SESSION['learner']); 
+		ChromePhp::log('username(index)='.$_SESSION['learner']->username);
+		ChromePhp::log($_SESSION);
+		
+		
+		?>
 		</td>
 	</tr>
 	<tr>
@@ -49,16 +58,15 @@
 		</td>
 
     </tr>
-
-    <!--
+    
     <tr>
 			
 		<td class="textbox">
-			<span class="frontsubtitle">My Trips</span><br />
-			You can check your trip information at any time by visiting the	<a href="view_projects.php">View Trips</a> page.
+			<span class="frontsubtitle">Project Selection</span><br />
+			You can select the projects most appropriate to your major from	<a href="view_projects.php">Projects List</a> page.
 		</td>
 	</tr>
-		-->
+
 </table>
 <!--MAIN TABLE ENDS HERE--->
 

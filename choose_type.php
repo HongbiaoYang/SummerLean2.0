@@ -61,20 +61,24 @@
 					<td colspan="2">
 						<table width="100%">
 								<tr>
+								<!--
 									<td  align="center" class="center" >
 								
                     If you are a participant sponsored by CAPES/CNPQ & IIE currently<br/> enrolled in
                      a U.S. University as part of the <strong>"Science Without Borders"</strong> program
 									</td>
+
 										</td>
 								<td align="right" class="left" width="5%">
 								</td>
+								-->
 										<td  align="center" class="center">
 								If you are a participant coming from abroad <strong>(Brazil, China, Colombia, Mexico & Uganda)</strong>
 									</td>
 									
 								</tr>
 							<tr>
+							<!--
 								<td class="center">
 								
                     <input type="button" onclick="window.location.href='add_swb.php';" value="Click Here">                
@@ -82,6 +86,7 @@
 								</td>
 								<td align="right" class="left" width="5%">
 								</td>
+								-->
 								<td class="center">
 								<input type="button" onclick="window.location.href='add_user.php';" value="Click Here">
 								</td>

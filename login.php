@@ -10,6 +10,9 @@
   This version of the code is released under the GNU General Public License
 */
 	include('includes/application_top.php');
+
+
+
 	if (isset($_SESSION['learner'])) {
 		header("Location: index.php");
 	}
@@ -26,11 +29,19 @@
 			//create session object of user
 			If (tep_active_account($_POST['username'])) {
 				$error = false;
-				$_SESSION['learner'] = new user($_POST['username']);
+				
+					ChromePhp::log('in login='.$_POST['username']);
+
+				$_SESSION['learner'] = new user($_POST['username']);	
+						
+//						$user = $_SESSION['learner'];
+//						print_r($user);
+//						echo $_POST['username']. $_POST['password'];
+
 				$user = $_SESSION['learner'];
-				$user->set_profile();
+				//$user->set_profile();
 	
-				header("Location: index.php");
+				header("Location: index.php?name=xxx".$_SESSION['learner']->username.'+'.$_POST['username'].'yyy'.$user->accessibility.'zzz');
 			}
 			else
 			{
@@ -39,7 +50,7 @@
 		}
 		else
 		{
-			$error = "Invalid username or password.";
+			$error = "Invalid username or password.";	
 		}
 	}
 	include('includes/header.php');
@@ -88,14 +99,15 @@
 							<input type="submit" name="login" value="Login" class="login"><br /></center>
 						</td>
 					</tr>
-					<!--
+					
 					<tr>		
 						<td colspan="2"><center>
-							 <a class="frontlink" href="choose_type.php">Register</a>&nbsp;
+							 <a class="frontlink" href="choose_type.php">Register</a>&nbsp; 
 							
-							<a href="forgotten_password.php" class="frontlink">Forgotten Password</a>&nbsp;
+							<a href="forgotten_password.php" class="frontlink">Forgot Password?</a>&nbsp;
 			        </td>
 						</tr>
+						<!--
 						<tr><td colspan="3" class="error">
 						    If you are new to this site, please click 'Register' to create a new account!
 				         <br/>Please DO NOT register multiple accounts!

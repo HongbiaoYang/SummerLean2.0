@@ -1,0 +1,182 @@
+activate_account.php:			$user->set_profile();
+all_courses.php:        tep_db_perform(TABLE_STUDENTS, $sql_array, 'update', 'stuindex ='.$user->id);	
+all_courses.php:        $user->set_profile();
+all_courses.php:			$where_clause .= " requirement_type='job' and requirement_id=".$user->job_title_id;
+all_courses.php:									if ($user->choice1 == 0) {
+all_courses.php:											    <tr><td align="right" class="left"><Strong>Choice1</Strong></td><td class="right" align="left"><?php echo $user->choice1.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice1);?></td></tr>
+all_courses.php:											    <tr><td align="right" class="left"><Strong>Choice2</Strong></td><td class="right" align="left"><?php echo $user->choice2.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice2);?></td></tr>
+all_courses.php:											    <tr><td align="right" class="left"><Strong>Choice3</Strong></td><td class="right" align="left"><?php echo $user->choice3.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice3);?></td></tr>
+all_courses.php:											    <tr><td align="right" class="left"><Strong>Choice4</Strong></td><td class="right" align="left"><?php echo $user->choice4.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice4);?></td></tr>
+course_cancel.php:	$user->set_profile();
+course_cancel.php:					   'user_id' => $user->id,
+course_cancel.php:			$query="delete from registrations where user_id=".$user->id.
+course_register.php:	$user->set_profile();
+course_register.php:					   'user_id' => $user->id,
+course_register.php:							  'user_id' => $user->id,
+course_register.php:	if (tep_validate_course_registration($course_id, $user->job_title_id, $user->specialty_id, $user->band)) {
+course_register.php:	$query = "select * from registrations where user_id = '".$user->id."' and calendar_id = '".$_SESSION['course']->calendar_id."'";
+course_registrations.php:						<td><a href="course_register.php?id=<?php echo $_GET['id']; ?>&user_id=<?php echo $user->id; ?>">Register</a></td>
+display.php:	if ($user->instructor == 1) {
+display.php:	    $user = new instructor($user->username);  
+display.php:	    $user->instructor_attributes();
+display.php:	    $user->set_profile();  
+display.php:        				// header("Location: view_profile.php?id=$user->id");
+display.php:							        // $esql = "select * from tbl_evaluate where evaluator=".$user->id;
+edit_profile.php:	if ($user->instructor == 1) {
+edit_profile.php:	    $user = new instructor($user->username);  
+edit_profile.php:	    $user->instructor_attributes();
+edit_profile.php:	    $user->set_profile();  
+edit_profile.php://				tep_db_perform(TABLE_STUDENTS, $sql_array, 'update', "stuindex='$user->id'");
+edit_profile.php:        if ($user->instructor == 1) {
+edit_profile.php:                tep_db_perform(TABLE_TEAMLEADERS, $sql_array, 'update', "user_id='$user->id'");  
+edit_profile.php:                header("Location: view_profile.php?id=$user->id");      
+edit_profile.php:    			if ($user->roommate == 0) {
+edit_profile.php:                $user_file_name = $user->id."-".$user->firstname."_".$user->lastname;
+edit_profile.php:    				tep_db_perform(TABLE_STUDENTS, $sql_array, 'update', "stuindex='$user->id'");
+edit_profile.php:    				tep_db_perform(TABLE_USERS, $sql_user, 'update', "id='$user->id'");
+edit_profile.php:    				header("Location: view_profile.php?id=$user->id");
+edit_profile.php:													<input class="textbox1" type="text" name="email" size="40" value="<?php echo $user->username; ?>">
+edit_profile.php:													<input class="textbox1" type="text" name="firstname" value="<?php echo $user->firstname; ?>">
+edit_profile.php:													<input class="textbox1" type="text" name="lastname" value="<?php echo $user->lastname; ?>">
+edit_profile.php:													<input class="textbox1" type="text" name="email" value="<?php echo $user->email; ?>">
+edit_profile.php:											<?php if ($user->instructor == 0) { ?>
+edit_profile.php:													<input class="textbox1" type="text" name="fullname" value="<?php echo $user->fullname; ?>">
+edit_profile.php:													<input class="textbox1" type="text" name="iieid" value="<?php echo $user->iieid; ?>">
+edit_profile.php:													<input class="textbox1" type="text" name="mobile" value="<?php echo $user->mobile; ?>">
+edit_profile.php:												<?php if ($user->instructor == 1) { ?>
+edit_profile.php:														<textarea name="bio" rows="5" cols="40"><?php echo $user->bio;?></textarea>
+edit_profile.php:											<?php if ($user->instructor == 0)  { ?>
+edit_profile.php:														<input class="textbox1" type="text" name="facebook" value="<?php echo $user->facebook; ?>">
+edit_profile.php:														<input class="textbox1" type="text" name="twitter" value="<?php echo $user->twitter; ?>">
+edit_profile.php:														<input class="textbox1" type="text" name="whatsapp" value="<?php echo $user->whatsapp; ?>">
+edit_profile.php:														<input class="textbox1" type="text" name="google" value="<?php echo $user->google; ?>">
+edit_profile.php:																				if ($user->roommate == 0) {
+edit_profile.php:																					echo tep_build_roommate_dropdown(TABLE_STUDENTS, 'roommate', false, '1', 'Gender="'.$user->gender.'"' , true, $_POST['roommate'], 'StuIndex','fullName');
+edit_profile.php:																						echo tep_get_name_pro(TABLE_STUDENTS, 'stuindex', 'fullname', $user->roommate);
+edit_profile.php:												 <input type="text" name="insurance" value="<?php echo $user->insurance; ?>">
+edit_profile.php:													 <input type="text" name="insurance_no" value="<?php echo $user->insurance_no; ?>">
+edit_profile.php:        									<?php echo tep_build_checkbox(TABLE_BACKGROUND, 'background[]', $user->background);?>
+edit_profile.php:            								<option value="2015-08-01" <?php if ($user->dep_date == '2015-08-01') echo "SELECTED";?>>08/01/2015, Sartuday</option>
+edit_profile.php:            								<option value="2015-08-02" <?php if ($user->dep_date == '2015-08-02') echo "SELECTED";?>>08/02/2015, Sunday</option>
+edit_profile.php:            					    	<input name="dep_time" type="time" id="dep_time"  size="20" maxlength="20" value="<?php echo $user->dep_time;?>"
+edit_profile.php:            					    	<input name="flight" type="text" size="20" maxlength="50" value="<?php echo $user->flight;?>"
+edit_profile.php:            					            <?php if ($user->ticket == "") 
+edit_profile.php:            					    	        else if (check_picture_extension($user->ticket) == false) {
+edit_profile.php:            					    	            echo "<a href=\"iternerary/$user->ticket\">$user->ticket</a>";
+edit_profile.php:            					    	            echo 	"<img src=\"iternerary/$user->ticket\"  width=\"500\">";
+edit_trip.php:  $user->set_profile();  
+edit_trip.php:  $user->set_choices();
+edit_trip.php://				tep_db_perform(TABLE_STUDENTS, $sql_array, 'update', "stuindex='$user->id'");
+edit_trip.php:    				tep_db_perform(TABLE_CHOICES, $sql_array, 'update', "stuindex='$user->id'");
+edit_trip.php:    				header("Location: view_projects.php?id=$user->id");
+edit_trip.php:													<input class="textbox1" type="text" name="email" size="40" value="<?php echo $user->username; ?>">
+edit_trip.php:                							    <?php if ($user->weekend1 == 1) echo "checked";?>>
+edit_trip.php:2                							    <?php if ($user->weekend2 == 1) echo "checked";?>>
+evaluation2.php:	if ($user->instructor == 1) {
+evaluation2.php:	    $user = new instructor($user->username);  
+evaluation2.php:	    $user->instructor_attributes();
+evaluation2.php:	    $user->set_profile();  
+evaluation2.php:        				tep_db_perform(TABLE_EVALUATE, $sql_array, 'update', "evaluator='$user->id' and evaluatee = ".$eval_id);
+evaluation2.php:        				// header("Location: view_profile.php?id=$user->id");
+evaluation2.php:							        $esql = "select * from tbl_evaluate where evaluator=".$user->id;
+evaluation3.php:	if ($user->instructor == 1) {
+evaluation3.php:	    $user = new instructor($user->username);  
+evaluation3.php:	    $user->instructor_attributes();
+evaluation3.php:	    $user->set_profile();  
+evaluation3.php:    				tep_db_perform(TABLE_EVALUATE, $sql_array, 'update', "evaluator='$user->id' and evaluatee = ".$eval_id);
+evaluation3.php:    				// header("Location: view_profile.php?id=$user->id");
+evaluation3.php:							        $esql = "select * from tbl_evaluate where evaluator=".$user->id;
+evaluation.php:	if ($user->instructor == 1) {
+evaluation.php:	    $user = new instructor($user->username);  
+evaluation.php:	    $user->instructor_attributes();
+evaluation.php:	    $user->set_profile();  
+evaluation.php:        				tep_db_perform(TABLE_EVALUATE, $sql_array, 'update', "evaluator='$user->id' and evaluatee = ".$eval_id);
+evaluation.php:        				// header("Location: view_profile.php?id=$user->id");
+evaluation.php:							        $esql = "select * from tbl_evaluate where evaluator=".$user->id;
+login.php:				$user->set_profile();
+my_courses.php:	$query = "select ca.id, ca.course_id, ca.start_date, ca.duration, ca.start_time, ca.end_time, ca.resources, ca.reg_online, c.center, c.type, c.name, r.id'registration_id', r.status from calendar as ca left join registrations as r on (r.calendar_id = ca.id) left join courses as c on (ca.course_id = c.id) where r.user_id = '$user->id' order by ca.start_date, c.center, c.type, ca.start_time, c.name";
+view_course.php:							<a href="view_schedule.php?action=register&id=<?php echo $user->id; ?>&course_id=<?php echo $course->id; ?>">Register</a>
+view_my_courses.php:	if ($user->instructor == 1) {
+view_my_courses.php:	    $user = new instructor($user->username);
+view_my_courses.php:	    $user->set_profile();
+view_my_courses.php:	$query = "select ca.id, ca.course_id, ca.start_date, ca.dates, ca.start_time, ca.end_time, ca.resources, ca.reg_online, c.center, c.type, c.name, r.id'registration_id', r.status from calendar as ca left join registrations as r on (r.calendar_id = ca.id) left join courses as c on (ca.course_id = c.id) where r.user_id = '$user->id' order by ca.start_date, c.center, c.type, ca.start_time, c.name";
+view_my_courses.php:			$where_clause .= " requirement_type='job' and requirement_id=".$user->job_title_id;
+view_my_courses.php:																//echo '<font color="red"><a href="reporting.php?calendar_id='.$y['id'].'&user_id='.$user->id.'">Report</a></font>';
+view_my_courses.php:										if ($user->instructor==1) {
+view_my_courses.php:				<td class="left"><a href ="view_schedule.php?action=register&id='.$user->id.'&course_id='.$b['id'].'">Register</a></td></tr>';
+view_profile.php:	$user->set_profile();
+view_profile.php:	if ($user->instructor == 1) {
+view_profile.php:	    $user = new instructor($user->username);  
+view_profile.php:	    $user->instructor_attributes();
+view_profile.php:	$query = "select ca.id, ca.course_id, ca.start_date, ca.dates, ca.start_time, ca.end_time, ca.resources, ca.reg_online, c.center, c.type, c.name, r.id'registration_id', r.status from calendar as ca left join registrations as r on (r.calendar_id = ca.id) left join courses as c on (ca.course_id = c.id) where r.user_id = '$user->id' order by ca.start_date, c.center, c.type, ca.start_time, c.name";
+view_profile.php:													<span class="subtitle2"><?php echo $user->username; ?>&nbsp;&nbsp;&nbsp;</span>(<a href="edit_profile.php">Edit Profile</a>)
+view_profile.php:											<?php if ($user->instructor ==  0) { ?>
+view_profile.php:													<?php echo tep_check_evaluated($user->id);?>
+view_profile.php:										<?php if($user->instructor == 1) { ?>
+view_profile.php:													if ($user->instructor == '1') {
+view_profile.php:														$instructor = new instructor($user->username);
+view_profile.php:													<?php echo $user->firstname.' '.$user->middlename.' '.$user->lastname.' '.$user->lastname2; ?>
+view_profile.php:													<?php echo $user->email; ?>
+view_profile.php:											<?php if ($user->instructor==1) { ?>
+view_profile.php:													<?php echo htmlspecialchars ($user->bio); ?>
+view_profile.php:											<?php if ($user->instructor==0) { ?>
+view_profile.php:													<?php echo tep_get_name(TABLE_COUNTRIES, $user->country); ?>
+view_profile.php:													<?php echo $user->fullname; ?>
+view_profile.php:													    <?php echo $user->netid; ?></a>
+view_profile.php:													<?php echo $user->tnid; ?>
+view_profile.php:													<?php echo $user->insurance; ?>
+view_profile.php:													<?php echo $user->insurance_no; ?>
+view_profile.php:													<?php echo $user->iieid; ?>
+view_profile.php:													<?php echo $user->mobile; ?>
+view_profile.php:											if ($user->instructor == 0) {
+view_profile.php:													<?php echo $user->facebook; ?>
+view_profile.php:													<?php echo $user->twitter; ?>
+view_profile.php:													<?php echo $user->whatsapp; ?>
+view_profile.php:													<?php echo $user->google; ?>
+view_profile.php:												    <Img src="uploads/<?php echo $user->picture; ?>" width ="200" />
+view_profile.php:												    if ($user->semester <= 12) {
+view_profile.php:												        echo $user->semester;
+view_profile.php:												    } else if ($user->semester == 13)  {
+view_profile.php:												    } else if ($user->semester == 14) {
+view_profile.php:												    $back_array = explode(".", $user->background);
+view_profile.php:											  echo tep_get_name_pro(TABLE_STUDENTS, 'stuindex', 'fullname', $user->roommate);
+view_profile.php:        									<?php 		echo $user->dep_date; ?>
+view_profile.php:            					        <?php  echo $user->dep_time; ?>
+view_profile.php:            					   <?php echo $user->flight;?>
+view_profile.php:            					            <?php if ($user->ticket == "") 
+view_profile.php:            					    	        else if (check_picture_extension($user->ticket) == false) {
+view_profile.php:            					    	            echo "<a href=\"iternerary/$user->ticket\">$user->ticket</a>";
+view_profile.php:            					    	            echo 	"<img src=\"iternerary/$user->ticket\"  width=\"500\">";
+view_profile.php:								<?php if ($user->team != 0) { ?>
+view_profile.php:										    <?php $proj_array = tep_get_team_leader($user->id);?>
+view_profile.php:        													    $mates_array = tep_get_teammates($user->id, $user->team);        													
+view_profile.php:																echo '<font color="red"><a href="reporting.php?calendar_id='.$y['id'].'&user_id='.$user->id.'">Report</a></font>';
+view_profile.php:											if ($user->instructor == 0 && $courses_error) { ?>
+view_profile.php:											    $query = "select * from tbl_projects where 1 and teamleader = ".$user->team;
+view_projects.php:	$user->set_profile();
+view_projects.php:	$user->set_choices();
+view_projects.php:        tep_db_perform(TABLE_CHOICES, $sql_array, 'update', 'stuindex ='.$user->id);	
+view_projects.php:        $user->set_choices();
+view_projects.php:			$where_clause .= " requirement_type='job' and requirement_id=".$user->job_title_id;
+view_projects.php:									if ($user->instructor == 1) {
+view_projects.php:									if ($user->instructor == 0) {
+view_projects.php:									if ($user->choice1 == 0) {
+view_projects.php:											    <tr><td align="right" class="left"><Strong>Choice1</Strong></td><td class="right" align="left"><?php echo $user->choice1.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice1);?></td></tr>
+view_projects.php:											    <tr><td align="right" class="left"><Strong>Choice2</Strong></td><td class="right" align="left"><?php echo $user->choice2.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice2);?></td></tr>
+view_projects.php:											    <tr><td align="right" class="left"><Strong>Choice3</Strong></td><td class="right" align="left"><?php echo $user->choice3.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice3);?></td></tr>
+view_projects.php:											    <tr><td align="right" class="left"><Strong>Choice4</Strong></td><td class="right" align="left"><?php echo $user->choice4.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice4);?></td></tr>
+view_projects.php:											    <tr><td align="right" class="left"><Strong>Choice5</Strong></td><td class="right" align="left"><?php echo $user->choice5.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice5);?></td></tr>
+view_projects.php:											     <tr><td align="right" class="left"><Strong>Your Project</Strong></td><td class="right" align="left"><?php echo tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->team);?></td></tr>
+view_projects.php:											        <Strong><?php echo $user->score;?></Strong></td></tr>
+view_projects.php:											     <tr><td align="right" class="left"><Strong>Trip 1</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip1);?></td></tr>											     
+view_projects.php:											     <tr><td align="right" class="left"><Strong>Trip 2</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip2);?></td></tr>
+view_projects.php:											     <tr><td align="right" class="left"><Strong>Ripley's Aquarium Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend1 == 0?"Not Going":"Going,<strong> 9:30 AM </strong>@Laurel downstairs";?></td></tr>
+view_projects.php:											     <tr><td align="right" class="left"><Strong>Tanger Outlet Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend2 == 0?"Not Going":"Going,<strong> 8:30 AM </strong> boarding, <strong> 9:00 AM </strong> departure @Laurel downstairs  ";?>&nbsp; <!-- <a href="edit_trip.php">Modify</a> -->
+view_projects.php:				if ($user->team != 0 && $user->choice1 != 0) {
+view_projects.php:				$leader = tep_get_leader($user->team);
+view_schedule.php:  $user->set_profile();
+view_schedule.php.bak:		$user->set_profile();
+view_schedule.php.bak:			$user->set_profile();
+view_schedule.php.bak:		 $where_clause .= "  requirement_type='job' and requirement_id=".$user->job_title_id;
+view_schedule.php.bak:					<td height="18" class="subtitle" valign="bottom" width="20%">Registering: <?php echo $user->firstname.' '.$user->lastname; ?></td>
+view_schedule.php.bak:								<td class="left"><a href="course_register.php?id=<?php echo $b['id']; ?>&user_id=<?php echo $user->id; ?>">Register</a></td>

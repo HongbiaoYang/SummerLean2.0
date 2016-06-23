@@ -7,6 +7,9 @@
 
   This version of the code is released under the GNU General Public License
 */
+
+
+
 class user {
 
 var $id;
@@ -81,7 +84,9 @@ function user($username) {
 	}
 
 	$this->username = $username;
-
+	$this->accessibility = 0;
+	
+	ChromePhp::log('user.php::username='.$username);
 
 }
 
@@ -96,7 +101,7 @@ function set_profile() {
 	$this->fullname = $row['fullName'];
 	$this->gender = $row['Gender'];
 	$this->martial = $row['martial'];
-    	$this->picture = $row['picture'];
+  $this->picture = $row['picture'];
 
 	$this->netid = $row['netid'];
 	$this->tnid = $row['TNID'];

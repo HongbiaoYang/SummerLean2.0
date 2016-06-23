@@ -8,6 +8,7 @@
   This version of the code is released under the GNU General Public License
 */
 	include('includes/application_top.php');
+	
 	if (!isset($_SESSION['learner'])) {
 		header("Location: login.php");
 	}
@@ -16,10 +17,18 @@
 	
 	if ($user->instructor == 1) {
 	    
+		ChromePhp::log('Hello console!');
+		ChromePhp::log($_SESSION['learner']);
+
 	    $user = new instructor($user->username);  
 	    $user->instructor_attributes();
+	    	    
+	     //print_r($user);
+	     //print_r($_SESSION['learner']);
+	    // echo "is instructor++++";
 	}
 	
+	// require_once('something.php');
 	include(INCLUDES . 'header.php');
 	include(INCLUDES . 'front_header.php');
 
@@ -71,7 +80,9 @@
 		</tr>
 		<tr>
 			<td width="3%" rowspan=2><IMG height=45 src="images/line.gif" width=24></td>
-			<td class="title" height="27" colspan=3>&nbsp;Profile Management</td>
+			<td class="title" height="27" colspan=3>&nbsp;Profile Management 
+				<?php  // print_r($_SESSION['learner']); echo  '++++++++++++';$user = $_SESSION['learner'];  print_r($user); ?>
+				 </td>
 		</tr>
 		<tr>
 			<td width="2%"><IMG src="images/left.gif"></td>
@@ -247,7 +258,7 @@
 											
 										<?php }
 										?>
-
+											<!--
 											<tr>
 												<td class="left">
 													IIE ID:
@@ -256,7 +267,7 @@
 													<?php echo $user->iieid; ?>
 												</td>
 											</tr>
-
+											-->
 
 											<tr>
 												<td class="left">
@@ -353,6 +364,7 @@
 												    
 												</td>
 											</tr>
+											
 												<tr>
 												<td class="left">
 													Preferred Roommate:
@@ -549,6 +561,7 @@
 							  <?php }?>
 						
 								<!-- The schedule of this user -->
+								
 								<tr>
 									<td align="left">
 										<h4>Course Schedule:</h4>

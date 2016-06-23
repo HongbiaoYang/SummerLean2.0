@@ -62,7 +62,7 @@
 	}		
 	
 	// page to display all courses with filter
-?>
+?>	<!--
 	<TABLE width=<?php echo TABLE_WIDTH; ?> cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff">
 		<tr>
 			<td colspan=3><IMG height=10 src="images/blank.gif" width=1></td>
@@ -76,10 +76,12 @@
 			<td height="18" class="subtitle" valign="bottom" width="12%">Viewing all courses</td>
 			<td width="83%"><IMG src="images/right.gif"></td>
 		</tr>
+		
 		<tr>
 			<td colspan="3">&nbsp;</td>
 		</tr>
 	</TABLE>
+	-->
 	<TABLE width=<?php echo TABLE_WIDTH; ?> cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff">
 		<tr>
 			<td align="middle">
@@ -110,15 +112,17 @@
 									<?php
 									
 									if ($user->instructor == 1) {
-									   ?>									    
+									   ?>			
+									   <!--						    
 									    		 <tr><td align="right" class="left"><Strong>Ripley's Aquarium Trip</Strong></td><td class="right" align="left">
 									    		    <strong> 9:30 AM </strong>@Laurel downstairs</td></tr>
 											     
 											     <tr><td align="right" class="left"><Strong>Tanger Outlet Trip</Strong></td><td class="right" align="left">
 											  <strong> 8:30 AM </strong> boarding, <strong> 9:00 AM </strong> departure @Laurel downstairs </td></tr>
+											  -->
 								  <?php
 								  }
-								  
+								  	
 									if ($user->instructor == 0) {
 									
 									if ($user->choice1 == 0) {
@@ -133,7 +137,7 @@
     								
     								  <tr>
         									<td align="left" colspan="2"><h5>
-    								Please select the top 5 choices you have for affinity of projects. Remember that there is no guarantee or warranty that you will end up working in these projects. If you are part of the healthcare certificate program at ITESM (Mexico), please include in your first four choices only hospital projects, and put as your fifth choice the project that appears first on the list.</h5>
+    								Please select the top 5 choices you have for affinity of projects. Remember that there is no guarantee or warranty that you will end up working in these projects.</h5>
 									        </td>
         								</tr>
 									        
@@ -153,6 +157,7 @@
                 				  <tr><td colspan=2><hr></td> </tr>
                 				  
                 				  
+                				  <!--
                 				  <tr>
         										<td align="left" colspan="2">
         										<h4>Facility Trips</h4>
@@ -171,7 +176,7 @@
                 								Field Trip Choice 1:
                 							</td>
                 							<td class="right">
-                								<!-- pulldown menu of vegitarian, halal, kosher --> 	
+
                 								<?php echo tep_build_trip_dropdown(TABLE_TRIPTYPE, 'trip1', false, '1', ' date = 9', true, $_POST['trip1']);?>
                 								&nbsp;<span class="required">*</span>
                 							</td>
@@ -182,7 +187,7 @@
                 								Field Trip Choice 2:
                 							</td>
                 							<td class="right">
-                								<!-- pulldown menu of vegitarian, halal, kosher --> 	
+
                 								<?php echo tep_build_trip_dropdown(TABLE_TRIPTYPE, 'trip2', false, '1', 'date = 10 or date = 23', true, $_POST['trip2']);?>
                 								&nbsp;<span class="required">*</span>
                 							</td>
@@ -220,6 +225,7 @@
                 							</td>
                 						</tr>	
         							
+        								  --> 
         								  
                 				    <tr>
                 					<td colspan="2" align="center">
@@ -235,27 +241,30 @@
 											 else {
 		    
 											   ?>
-											   <!--
+											   
 											   <table width="100%" align="center">
 											    <tr><td align="right" class="left"><Strong>Choice1</Strong></td><td class="right" align="left"><?php echo $user->choice1.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice1);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice2</Strong></td><td class="right" align="left"><?php echo $user->choice2.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice2);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice3</Strong></td><td class="right" align="left"><?php echo $user->choice3.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice3);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice4</Strong></td><td class="right" align="left"><?php echo $user->choice4.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice4);?></td></tr>
 											    <tr><td align="right" class="left"><Strong>Choice5</Strong></td><td class="right" align="left"><?php echo $user->choice5.'-'.tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->choice5);?></td></tr>
-											    -->
+											   
 											    
 											     <tr><td align="right" class="left"><Strong>Your Project</Strong></td><td class="right" align="left"><?php echo tep_get_name_pro(TABLE_PROJECTS, 'ProjIndex', 'Title', $user->team);?></td></tr>
-											     <tr><td align="right" class="left"><Strong>Your Final Score</Strong></td><td class="right" align="left">
+											    
+											    <!-- <tr><td align="right" class="left"><Strong>Your Final Score</Strong></td><td class="right" align="left">
 											        <Strong><?php echo $user->score;?></Strong></td></tr>
 											    
-											     
 											     <tr><td align="right" class="left"><Strong>Trip 1</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip1);?></td></tr>											     
 											     <tr><td align="right" class="left"><Strong>Trip 2</Strong></td><td class="right" align="left"><?php echo tep_get_name(TABLE_TRIPTYPE,$user->trip2);?></td></tr>
 											     
 											     <tr><td align="right" class="left"><Strong>Ripley's Aquarium Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend1 == 0?"Not Going":"Going,<strong> 9:30 AM </strong>@Laurel downstairs";?></td></tr>
 											     
-											     <tr><td align="right" class="left"><Strong>Tanger Outlet Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend2 == 0?"Not Going":"Going,<strong> 8:30 AM </strong> boarding, <strong> 9:00 AM </strong> departure @Laurel downstairs  ";?>&nbsp; <!-- <a href="edit_trip.php">Modify</a> -->
+											     <tr><td align="right" class="left"><Strong>Tanger Outlet Trip</Strong></td><td class="right" align="left"><?php echo $user->weekend2 == 0?"Not Going":"Going,<strong> 8:30 AM </strong> boarding, <strong> 9:00 AM </strong> departure @Laurel downstairs  ";?>&nbsp; 
 											      </td></tr>
+											      -->
+											      <!-- <a href="edit_trip.php">Modify</a> -->
+											     
 											     
 											     
 											     

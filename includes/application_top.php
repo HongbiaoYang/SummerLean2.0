@@ -8,7 +8,8 @@
 
   This version of the code is released under the GNU General Public License
 */
-
+	
+	include 'ChromePhp.php';
 	require('config.php');
 
 	require(FUNCTIONS . 'database.php');

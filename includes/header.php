@@ -21,6 +21,7 @@ header("Location: https://$url_array[host]$url_array[path]");
 If (!isset($user) && !stristr($_SERVER['REQUEST_URI'],'login.php')  
 					&& !stristr($_SERVER['REQUEST_URI'],'add_user.php')
 					&& !stristr($_SERVER['REQUEST_URI'],'add_swb.php')
+					&& !stristr($_SERVER['REQUEST_URI'],'indexccessibility.php')
 					&& !stristr($_SERVER['REQUEST_URI'],'choose_type.php')
 					&& !stristr($_SERVER['REQUEST_URI'],'register_teamleader.php')
 					 && !stristr($_SERVER['REQUEST_URI'],'forgotten_password.php')	

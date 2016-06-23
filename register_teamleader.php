@@ -30,7 +30,7 @@
 				// enter user into users database
 				tep_db_perform(TABLE_USERS, $sql_array);
 				$user_id = mysql_insert_id();
-        
+                
 				$sql_array = array("user_id" => $user_id,
 						   "email" => $_POST['email'],
 						   "firstname" => $_POST['firstname'],
@@ -46,6 +46,15 @@
 
 				// enter user profile details
 				tep_db_perform(TABLE_TEAMLEADERS, $sql_array);
+				
+				
+				// insert into tbl_students
+				$sql_array = array("email" => prepare_input($_POST['email']),
+						   "stuindex" => $user_id);
+						   
+				// enter user into users database
+				tep_db_perform(TABLE_STUDENTS, $sql_array);
+				
 				$email = $_POST['email'];
 	//			$_SESSION['learner'] = new user($_POST['email']);
 					header("Location: account_pending.php?username=".$_POST['email'].

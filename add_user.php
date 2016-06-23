@@ -95,6 +95,16 @@
 
 				// enter user profile details
 				tep_db_perform(TABLE_STUDENTS, $sql_array);
+				
+				
+				$sql_array_choice = array("stuindex" => $user_id,
+						);
+						
+				// insert a row in choice table
+				tep_db_perform(TABLE_CHOICES, $sql_array_choice);
+
+				
+				
 				$email = $_POST['email'];
 	//			$_SESSION['learner'] = new user($_POST['email']);
 					header("Location: account_pending.php?username=".$_POST['email'].
@@ -660,15 +670,17 @@
 				</tr>
 				
 	<tr>
+	
 					<td colspan="2">
-						<h4>Travel Information</h4>
+					
+						<h4>Profile Picture</h4>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<table width="100%">
 							
-										
+					<!--					
 						<tr>
 					    <td align="right" class="left">
 					    	Arrival Date:
@@ -684,7 +696,7 @@
 					    <td class="right">
 					    	<input name="arr_time" type="time" id="arr_time"  size="20" maxlength="20" value="<?php echo $_POST['arr_time']
 					    	?>"
-					    	 /> &nbsp;<span class="required">*</span>   
+					    //	 /> &nbsp;<span class="required">*</span>   
 					    	</td>
 					  </tr>
 					  
@@ -713,7 +725,7 @@
 					  </tr>
 					  
 
-					  					  
+					  	-->				  
 					    <tr>
 					    <td align="right" class="left">
 					    	Profile Picture (A picture of you):
